@@ -1,0 +1,171 @@
+﻿@page
+@model pokenae_WebApp.Pages.C_PokemonSoft.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+
+    int count = 0;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form method="get">
+    <p>
+        タイトル:
+        <select asp-for="SearchTitle" asp-items="Model.Titles">
+            <option value="">All</option>
+        </select>
+        <br />
+        世代:
+        <select asp-for="SearchGen" asp-items="Model.Gens">
+            <option value="">All</option>
+        </select>
+        <br />
+        開発元:
+        <select asp-for="SearchDeveloper" asp-items="Model.Developers">
+            <option value="">All</option>
+        </select>
+        <br />
+        ハード:
+        <select asp-for="SearchHard" asp-items="Model.Hards">
+            <option value="">All</option>
+        </select>
+        <br />
+
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<form method ="post">
+    <input type="submit" name="update" value="更新" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Label)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].DLFlg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Memo)
+                </th>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Name) *@
+                </th>
+                <th>
+                    @* @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].ReleaseDate) *@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Gen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].DeveloperName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].HardCategoryName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0;i < Model.V_C_PokemonSofts.Count; i++) 
+            {
+                <tr>
+                    <td>
+                        <input type="text" asp-for="@Model.V_C_PokemonSofts[i].Label" />
+                    </td>
+                    <td>
+                        <input type="text" asp-for="@Model.V_C_PokemonSofts[i].Title" readonly="readonly" />
+                    </td>
+                    <td>
+                        <select asp-for="@Model.V_C_PokemonSofts[i].DLFlg">
+                            <option value="false">パッケージ版</option>
+                            <option value="true">DL版</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" asp-for="@Model.V_C_PokemonSofts[i].Memo"  />
+                    </td>
+                    <td>
+                        <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].Name" />
+                    </td>
+                    <td>
+                        <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].ReleaseDate" value="@Model.V_C_PokemonSofts[i].ReleaseDate.ToString("yyyy-MM-dd")" readonly="readonly" />
+                    </td>
+                    <td>
+                        <input type="text" asp-for="@Model.V_C_PokemonSofts[i].Gen" readonly="readonly" />
+                    </td>
+                    <td>
+                        <input type="text" asp-for="@Model.V_C_PokemonSofts[i].DeveloperName" readonly="readonly" />
+                    </td>
+                    <td>
+                        <input type="text" asp-for="@Model.V_C_PokemonSofts[i].HardCategoryName" readonly="readonly" />
+                    </td>
+                    <td>
+                        <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].ID" />
+                        <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].MPokemonSoftCODE" />
+                        <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].MDeveloperCODE" />
+                        <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].MHardCategoryCODE" />
+
+                        <a asp-page="./Edit" asp-route-id="@Model.V_C_PokemonSofts[i].ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@Model.V_C_PokemonSofts[i].ID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@Model.V_C_PokemonSofts[i].ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>新規登録</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Label)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].DLFlg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.V_C_PokemonSofts[0].Memo)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Create_V_C_PokemonSofts.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="text" asp-for="@Model.Create_V_C_PokemonSofts[i].Label" />
+                    </td>
+                    <td>
+                        <select asp-for="@Model.Create_V_C_PokemonSofts[i].MPokemonSoftCODE" asp-items="Model.PokemonSoftList">
+                            <option value="">選択してください</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select asp-for="@Model.Create_V_C_PokemonSofts[i].DLFlg">
+                            <option value="false">パッケージ版</option>
+                            <option value="true">DL版</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" asp-for="@Model.Create_V_C_PokemonSofts[i].Memo" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" name="create" value="行を追加" />
+
+</form>

@@ -1,0 +1,80 @@
+﻿@page
+@model pokenae_WebApp.Pages.C_PokemonSoft.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>V_C_PokemonSoft</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="V_C_PokemonSoft.ID" />
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.Label" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.Label" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.Label" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.Title" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.Title" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.Name" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.Name" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.ReleaseDate" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.ReleaseDate" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.Gen" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.Gen" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.Gen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.MPokemonSoftCODE" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.MPokemonSoftCODE" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.MPokemonSoftCODE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.MDeveloperCODE" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.MDeveloperCODE" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.MDeveloperCODE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.DeveloperName" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.DeveloperName" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.DeveloperName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.MHardCategoryCODE" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.MHardCategoryCODE" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.MHardCategoryCODE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="V_C_PokemonSoft.HardCategoryName" class="control-label"></label>
+                <input asp-for="V_C_PokemonSoft.HardCategoryName" class="form-control" />
+                <span asp-validation-for="V_C_PokemonSoft.HardCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
