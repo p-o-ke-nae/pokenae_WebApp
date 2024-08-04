@@ -17,18 +17,6 @@ namespace pokenae_WebApp.Models
         /// </summary>
         public string Name { get; set; }
 
-
-        //DBの操作で必要なもの
-        /// <summary>
-        /// DBのディレクトリ
-        /// </summary>
-        public static string DirPath
-        {
-            get
-            {
-                return /*PNBase.ExePath + */"pokenaeDB\\" + "Developer\\";
-            }
-        }
         /// <summary>
         /// IDのタグ
         /// </summary>
