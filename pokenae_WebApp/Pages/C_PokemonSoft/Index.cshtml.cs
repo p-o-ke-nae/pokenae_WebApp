@@ -160,11 +160,26 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
                 }
 
                 //登録失敗したものを保持するための処理
-                for(int i = 0;i < retrylist.Count; i++)
+                if (retrylist.Count == 0)
                 {
-                    ModelState.Remove("Create_V_C_PokemonSofts[" + i + "].Label");
-                    ModelState.Remove("Create_V_C_PokemonSofts[" + i + "].ID");
+                    retrylist.Add(new V_C_PokemonSoft());
+
+                    ModelState.Remove("Create_V_C_PokemonSofts[0].Label");
+                    ModelState.Remove("Create_V_C_PokemonSofts[0].MPokemonSoftCODE");
+                    ModelState.Remove("Create_V_C_PokemonSofts[0].DLFlg");
+                    ModelState.Remove("Create_V_C_PokemonSofts[0].Memo");
                 }
+                else
+                {
+                    for (int i = 0; i < retrylist.Count; i++)
+                    {
+                        ModelState.Remove("Create_V_C_PokemonSofts[0].Label");
+                        ModelState.Remove("Create_V_C_PokemonSofts[0].MPokemonSoftCODE");
+                        ModelState.Remove("Create_V_C_PokemonSofts[0].DLFlg");
+                        ModelState.Remove("Create_V_C_PokemonSofts[0].Memo");
+                    }
+                }
+                
                 Create_V_C_PokemonSofts = retrylist;
                 
 

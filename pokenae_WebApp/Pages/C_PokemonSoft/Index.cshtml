@@ -9,10 +9,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-
 <form method="get">
     <p>
         タイトル:
@@ -77,7 +73,7 @@
         <tbody>
             @for (int i = 0;i < Model.V_C_PokemonSofts.Count; i++) 
             {
-                <tr>
+                <tr id="VCPS_@i">
                     <td>
                         <input type="text" asp-for="@Model.V_C_PokemonSofts[i].Label" />
                     </td>
@@ -114,14 +110,13 @@
                         <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].MDeveloperCODE" />
                         <input type="hidden" asp-for="@Model.V_C_PokemonSofts[i].MHardCategoryCODE" />
 
-                        <a asp-page="./Edit" asp-route-id="@Model.V_C_PokemonSofts[i].ID">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@Model.V_C_PokemonSofts[i].ID">Details</a> |
                         <a asp-page="./Delete" asp-route-id="@Model.V_C_PokemonSofts[i].ID">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <div id="PSListPager"></div>
 
     <p>新規登録</p>
     <table class="table">
@@ -141,7 +136,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="newcreates">
             @for (int i = 0; i < Model.Create_V_C_PokemonSofts.Count; i++)
             {
                 <tr>
@@ -166,6 +161,159 @@
             }
         </tbody>
     </table>
-    <input type="submit" name="create" value="行を追加" />
+
+    <input type="button" onclick="newCreate_table('newcreates',false)" value="行を追加" />
+    <input type="button" onclick="newCreate_table('newcreates',true)" value="1行目をコピー" />
+    <div>
+        <input type="submit" name="update" value="更新" />
+    </div>
 
 </form>
+
+<script>
+    
+    function newCreate_table(targetid,keepflg) {
+        var ParentCreate = document.getElementById(targetid);
+        var trNode = ParentCreate.firstElementChild;
+        //行数を取得
+        var trNodeCount = trNode;
+        let createCount = 0;
+        while (trNodeCount != null) {
+            createCount++;
+            trNodeCount = trNodeCount.nextElementSibling;
+        }
+
+        //列を取得
+        var tdNodes = trNode.firstElementChild;
+        var NodeList = [];
+        while (tdNodes != null) {
+            NodeList.push(tdNodes);
+            tdNodes = tdNodes.nextElementSibling;
+        }
+        
+        var trElement = document.createElement("tr");
+
+        for (let i = 0; i < NodeList.length; i++) {
+            var tdElement = document.createElement("td");
+            var cloneNode1 = NodeList[i].firstElementChild.cloneNode(true);
+            
+            cloneNode1.name = NodeList[i].firstElementChild.name.replace("[0]", "[" + createCount + "]");
+            
+            cloneNode1.id = NodeList[i].firstElementChild.id.replace("_0__", "_" + createCount + "__");
+            
+            if (keepflg == true) {
+                cloneNode1.value = NodeList[i].firstElementChild.value;
+            }
+            else{
+                if (cloneNode1.nodeName != "SELECT") {
+                    cloneNode1.value = "";
+                }
+            }
+
+            tdElement.appendChild(cloneNode1);
+            trElement.appendChild(tdElement);
+        }
+
+        ParentCreate.appendChild(trElement);
+
+        createCount++;
+    }
+    
+</script>
+
+<script>
+    var PagerParent;
+    let TargetID;
+    let ShowPageCount = 10;
+    let PageMaxCount = 0;
+    let PageIndex = 0;
+
+    function SetPager(pagerid, targetid, showpagecount, pagemaxcount) {
+        PagerParent = document.getElementById(pagerid);
+        TargetID = targetid;
+        ShowPageCount = showpagecount;
+        PageMaxCount = pagemaxcount;
+
+        PagerButtonsMake();
+    }
+
+    function PagerButtonsMake() {
+        const maxIndex = Math.floor((PageMaxCount - 1) / ShowPageCount) + 1;
+        
+        PagerButtonMake("<<");
+        PagerButtonMake("<");
+        for (let i = 0; i < maxIndex; i++) {
+            PagerButtonMake(i);
+        }
+        PagerButtonMake(">");
+        PagerButtonMake(">>");
+    }
+
+    function PagerButtonMake(No) {
+        var newButton = document.createElement("button");
+        if (No == "<<") {
+            newButton.textContent = No;
+            newButton.onclick = function () {
+                PageChange(0);
+            }
+        }
+        else if (No == "<") {
+            newButton.textContent = No;
+            newButton.onclick = function () {
+                PageChange(PageIndex - 1);
+            }
+        }
+        else if (No == ">>") {
+            newButton.textContent = No;
+            newButton.onclick = function () {
+                PageChange(PageMaxCount);
+            }
+        }
+        else if (No == ">") {
+            newButton.textContent = No;
+            newButton.onclick = function () {
+                PageChange(PageIndex + 1);
+            }
+        }
+        else {
+            newButton.textContent = No + 1;
+            newButton.onclick = function () {
+                PageChange(No);
+            }
+        }
+        newButton.type = "button";
+        PagerParent.appendChild(newButton);
+    }
+
+    function PageChange(index) {
+        const maxIndex = Math.floor((PageMaxCount - 1) / ShowPageCount) + 1;
+        if (index < 0) {
+            PageIndex = 0;
+        }
+        else if (index >= maxIndex) {
+            PageIndex = maxIndex - 1;
+        }
+        else {
+            PageIndex = index;
+        }
+
+        for (let i = 0; i < PageMaxCount; i++) {
+            var targetElement = document.getElementById(TargetID + i);
+
+            if (targetElement != null) {
+                if (PageIndex == (Math.floor(i / ShowPageCount))) {
+                    targetElement.style.display = '';
+                }
+                else {
+                    targetElement.style.display = 'none';
+                }
+            }
+        }
+    }
+</script>
+
+<script>
+    SetPager("PSListPager", "VCPS_", 10, @Model.V_C_PokemonSofts.Count);
+    PageChange(0);
+</script>
+
