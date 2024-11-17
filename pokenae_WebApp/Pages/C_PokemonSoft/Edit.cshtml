@@ -11,7 +11,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" asp-page="ActionResult">
+            <input name="id" value="iid"/>
+            <input name="name" value="winter" />
+            <button type="submit">post</button>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="V_C_PokemonSoft.ID" />
             <div class="form-group">

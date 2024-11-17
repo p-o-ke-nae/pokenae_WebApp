@@ -8,14 +8,13 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
 {
     public class ActionResultModel : PageModel
     {
-        public IActionResult OnGet(string id)
+        public async Task<IActionResult> OnGet(string id)
         {
             var item = new C_Account_Switch() { ID = "ae" + id, Name = "aespa" };
             return Content(item.ToJson(), "application/json");
         }
 
-        //[ValidateAntiForgeryToken]
-        public IActionResult OnPostAsync(string id, string name)
+        public async Task<IActionResult> OnPostAsync(string id, string name)
         {
             var item = new C_Account_Switch() { ID = "ae" + id, Name = name };
             return Content(item.ToJson(), "application/json");
