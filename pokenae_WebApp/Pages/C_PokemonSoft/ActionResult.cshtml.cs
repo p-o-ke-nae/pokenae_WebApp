@@ -14,7 +14,7 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
             return Content(item.ToJson(), "application/json");
         }
 
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult OnPostAsync(string id, string name)
         {
             var item = new C_Account_Switch() { ID = "ae" + id, Name = name };
