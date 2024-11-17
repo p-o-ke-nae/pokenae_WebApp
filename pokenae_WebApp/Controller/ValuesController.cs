@@ -22,18 +22,19 @@ namespace pokenae_WebApp.Controller
             return "value";
         }
 
-        //// POST api/<ValuesController>
-        //[HttpPost]
-        //public string Post(string id)
-        //{
-        //    return id + " posted";
-        //}
         // POST api/<ValuesController>
         [HttpPost]
-        public string Post()
+        public string Post(string id, string name)
         {
-            return "posted";
+            return id + " posted";
         }
+
+        //// POST api/<ValuesController>
+        //[HttpPost]
+        //public string Post()
+        //{
+        //    return "posted";
+        //}
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
