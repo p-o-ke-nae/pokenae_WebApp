@@ -8,9 +8,9 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
 {
     public class ActionResultModel : PageModel
     {
-        public IActionResult OnGet()
+        public IActionResult OnGet(string id)
         {
-            var item = new C_Account_Switch() { ID = "ae002", Name = "aespa" };
+            var item = new C_Account_Switch() { ID = "ae" + id, Name = "aespa" };
             return Content(item.ToJson(), "application/json");
         }
 
