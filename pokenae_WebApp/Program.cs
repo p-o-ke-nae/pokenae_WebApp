@@ -28,4 +28,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+//apiコントローラ使用のため
+app.MapControllers();
+
 app.Run();
