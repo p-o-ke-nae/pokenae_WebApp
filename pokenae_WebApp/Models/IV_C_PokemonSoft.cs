@@ -13,7 +13,7 @@ namespace pokenae_WebApp.Models
         [DisplayName("ポケモンソフトコード")]
         public string MPokemonSoftCODE { get; set; }
         [DisplayName("パッケージ版/DL版")]
-        public bool DLFlg { get; set; }
+        public bool DownloadFlg { get; set; }
         [DisplayName("メモ")]
         public string? Memo { get; set; }
 

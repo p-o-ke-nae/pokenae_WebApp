@@ -10,11 +10,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
+using Newtonsoft.Json;
+using NuGet.Protocol;
 using pokenae_WebApp.Data;
 using pokenae_WebApp.Models;
 
 namespace pokenae_WebApp.Pages.C_PokemonSoft
 {
+    [RequestFormLimits(MultipartBodyLengthLimit = 268435456)]
     public class IndexModel : PageModel
     {
         private readonly pokenae_WebApp.Data.pokenae_WebAppContext _context;
@@ -24,10 +27,28 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
             _context = context;
         }
 
+        /// <summary>
+        /// 一覧表示するソフト一覧を格納するリスト
+        /// </summary>
         [BindProperty(SupportsGet = true)]
         public IList<V_C_PokemonSoft> V_C_PokemonSofts { get;set; } = default!;
 
+        /// <summary>
+        /// ポケモンソフトの合計数
+        /// DLCを除く
+        /// </summary>
+        [BindProperty(SupportsGet = true)]
+        public int PokemonSoftCount { get; set; } = 0;
+
+        /// <summary>
+        /// ポケモンソフトのDLCの合計数
+        /// </summary>
+        public int PokemonDLCCount { get; set;} = 0;
+
         //新規作成用
+        /// <summary>
+        /// 新規登録するソフト一覧を格納するリスト
+        /// </summary>
         [BindProperty(SupportsGet = true)]
         public IList<V_C_PokemonSoft> Create_V_C_PokemonSofts { get; set; }
         public SelectList? PokemonSoftList { get; set; }
@@ -80,9 +101,33 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
         {
             await ComboItemLoad();
 
-            var packlist = from s in _context.V_C_PokemonSoft select s;
+            ////テーブルの初期化
+            //for (int i = 0; i < V_C_PokemonSofts.Count; i++)
+            //{
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].Label");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].Title");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].DLFlg");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].Memo");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].ReleaseDate");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].Gen");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].DeveloperName");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].HardCategoryName");
 
-            V_C_PokemonSofts = SearchList<V_C_PokemonSoft>(packlist).ToList();
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].ID");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].MPokemonSoftCODE");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].MDeveloperCODE");
+            //    ModelState.Remove("V_C_PokemonSofts[" + i + "].MHardCategoryCODE");
+            //}
+
+            var PSlist = from s in _context.V_C_PokemonSoft select s;
+            
+            V_C_PokemonSofts = SearchList<V_C_PokemonSoft>(PSlist).ToList();
+
+            //ソフトのカウントを行う
+            PokemonSoftCount = (from s in V_C_PokemonSofts where s.DLCFlg == false select s).Count();
+            PokemonDLCCount = V_C_PokemonSofts.Count() - PokemonSoftCount;
+
+
 
             //新規作成の準備
             if (Create_V_C_PokemonSofts == null || Create_V_C_PokemonSofts.Count <= 0)
@@ -91,6 +136,7 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
             }
         }
 
+        [ValidateAntiForgeryToken]
         public async Task OnPostAsync(string update,string create)
         {
             await ComboItemLoad();
@@ -101,16 +147,7 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
                 //更新
                 foreach (var item in V_C_PokemonSofts)
                 {
-                    var model = (from s in _context.C_PokemonSoft where s.ID == item.ID select s).FirstOrDefault();
-
-                    if (model != null)
-                    {
-                        item.ConvertToModel(model);
-
-                        _context.C_PokemonSoft.Update(model);
-                        changeFlg |= true;
-                    }
-
+                    changeFlg |= CPokemonSoftUpdate(item);
                 }
 
                 //新規作成
@@ -132,31 +169,14 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
                 }
 
                 //登録
-                //IDを生成
-                var old = (from s in _context.V_C_PokemonSoft
-                           orderby s.ID descending
-                           select s).FirstOrDefault();
-                int newid = 0;
-                if (old != null)
-                {
-                    var oldid = old.ID.Substring(3, 4);
-
-                    if (int.TryParse(oldid, out newid) == false)
-                    { }
-                }
-
+                int newid = NewCPokemonSoftIDNoGenerate();
                 foreach (var item in createlist)
                 {
                     newid++;
                     item.ID = V_C_PokemonSoft.IDStr + newid.ToString("0000");
 
                     //DBに登録
-                    var newmodel = new Models.C_PokemonSoft();
-                    newmodel.ID = item.ID;
-                    item.ConvertToModel(newmodel);
-
-                    _context.C_PokemonSoft.Add(newmodel);
-                    changeFlg |= true;
+                    changeFlg |= CPokemonSoftInsert(item);
                 }
 
                 //登録失敗したものを保持するための処理
@@ -164,22 +184,16 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
                 {
                     retrylist.Add(new V_C_PokemonSoft());
 
-                    ModelState.Remove("Create_V_C_PokemonSofts[0].Label");
-                    ModelState.Remove("Create_V_C_PokemonSofts[0].MPokemonSoftCODE");
-                    ModelState.Remove("Create_V_C_PokemonSofts[0].DLFlg");
-                    ModelState.Remove("Create_V_C_PokemonSofts[0].Memo");
+                    CreateListRemove(0);
                 }
                 else
                 {
                     for (int i = 0; i < retrylist.Count; i++)
                     {
-                        ModelState.Remove("Create_V_C_PokemonSofts[0].Label");
-                        ModelState.Remove("Create_V_C_PokemonSofts[0].MPokemonSoftCODE");
-                        ModelState.Remove("Create_V_C_PokemonSofts[0].DLFlg");
-                        ModelState.Remove("Create_V_C_PokemonSofts[0].Memo");
+                        CreateListRemove(i);
                     }
                 }
-                
+                //更新後表示するリスト
                 Create_V_C_PokemonSofts = retrylist;
                 
 
@@ -187,6 +201,8 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
                 if (changeFlg == true)
                 {
                     _context.SaveChanges();
+
+                    await OnGetAsync();
                 }
             }
             else if (!string.IsNullOrEmpty(create))
@@ -194,6 +210,83 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
                 Create_V_C_PokemonSofts.Add(new V_C_PokemonSoft());
             }
 
+        }
+
+        /// <summary>
+        /// 引数より取得したビューモデルよりポケモンソフトをDBに新規登録する
+        /// </summary>
+        private bool CPokemonSoftInsert(IV_C_PokemonSoft VM)
+        {
+            var result = false;
+
+            try
+            {
+                //DBに登録
+                var newmodel = new Models.C_PokemonSoft();
+                newmodel.ID = VM.ID;
+                VM.ConvertToModel(newmodel);
+
+                _context.C_PokemonSoft.Add(newmodel);
+                result = true;
+            }
+            catch
+            {
+
+            }
+
+            return result;
+        }
+        /// <summary>
+        /// 引数より取得したビューモデルよりDBにあるポケモンソフトを更新する
+        /// </summary>
+        private bool CPokemonSoftUpdate(IV_C_PokemonSoft VM)
+        {
+            var result = false;
+
+            //DBに更新
+            var model = (from s in _context.C_PokemonSoft where s.ID == VM.ID select s).FirstOrDefault();
+            if (model != null)
+            {
+                VM.ConvertToModel(model);
+
+                _context.C_PokemonSoft.Update(model);
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// ポケモンソフトのIDのNo.を生成する
+        /// </summary>
+        /// <returns></returns>
+        private int NewCPokemonSoftIDNoGenerate()
+        {
+            //IDを生成
+            var old = (from s in _context.V_C_PokemonSoft
+                       orderby s.ID descending
+                       select s).FirstOrDefault();
+            int newid = 0;
+            if (old != null)
+            {
+                var oldid = old.ID.Substring(3, 4);
+
+                if (int.TryParse(oldid, out newid) == false)
+                { }
+            }
+
+            return newid;
+        }
+
+        /// <summary>
+        /// 新規登録リストの行の表示を初期化する
+        /// </summary>
+        private void CreateListRemove(int index)
+        {
+            ModelState.Remove("Create_V_C_PokemonSofts[" + index + "].Label");
+            ModelState.Remove("Create_V_C_PokemonSofts[" + index + "].MPokemonSoftCODE");
+            ModelState.Remove("Create_V_C_PokemonSofts[" + index + "].DLFlg");
+            ModelState.Remove("Create_V_C_PokemonSofts[" + index + "].Memo");
         }
 
         /// <summary>
@@ -270,10 +363,10 @@ namespace pokenae_WebApp.Pages.C_PokemonSoft
             }
             if (!string.IsNullOrEmpty(SearchHard))
             {
-                list = list.Where(s => s.HardCategoryName.Contains(SearchHard));
+                list = list.Where(s => s.HardCategoryName == SearchHard);
             }
 
-            list = list.OrderBy(s => s.MPokemonSoftCODE).ThenBy(s => s.ID);
+            list = list.OrderBy(s => s.MPokemonSoftCODE).ThenBy(s => s.Label);
 
             return list;
         }

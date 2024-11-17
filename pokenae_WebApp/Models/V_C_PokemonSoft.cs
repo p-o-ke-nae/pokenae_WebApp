@@ -14,7 +14,7 @@ namespace pokenae_WebApp.Models
         [DisplayName("ポケモンソフトコード")]
         public string MPokemonSoftCODE { get; set; }
         [DisplayName("パッケージ版/DL版")]
-        public bool DLFlg { get; set; }
+        public bool DownloadFlg { get; set; }
         [DisplayName("メモ")]
         public string? Memo { get; set; }
        
@@ -34,6 +34,8 @@ namespace pokenae_WebApp.Models
         public string MHardCategoryCODE { get; set; }
         [DisplayName("ハード")]
         public string HardCategoryName { get; set; }
+        [DisplayName("ソフト/DLC")]
+        public bool DLCFlg { get; set; }
 
         /// <summary>
         /// デフォルトコンストラクタ
@@ -57,7 +59,7 @@ namespace pokenae_WebApp.Models
             {
                 model.Label = this.Label;
                 model.MPokemonSoftCODE = this.MPokemonSoftCODE;
-                model.DLFlg = this.DLFlg;
+                model.DLFlg = this.DownloadFlg;
                 model.Memo = this.Memo;
             }
         }

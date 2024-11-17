@@ -65,5 +65,10 @@ namespace pokenae_WebApp.Models
         /// </summary>
         public bool DLFlg { get; set; }
 
+        /// <summary>
+        /// DLCであるフラグ
+        /// </summary>
+        public bool DLCFlg { get; set; }
+
     }
 }
