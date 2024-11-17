@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pokenae_WebApp.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,16 +18,16 @@ namespace pokenae_WebApp.Controller
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
-            return "value";
+            return id;
         }
 
         // POST api/<ValuesController>
         [HttpPost]
-        public string Post(string id, string name)
+        public string Post([FromBody]C_Account_Switch id)
         {
-            return id + " posted";
+            return id.ID + " posted";
         }
 
         //// POST api/<ValuesController>

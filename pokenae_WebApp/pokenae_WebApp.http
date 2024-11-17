@@ -1,0 +1,16 @@
+﻿@pokenae_WebApp_HostAddress = https://localhost:7255
+
+POST {{pokenae_WebApp_HostAddress}}/api/values
+Content-Type: application/json
+
+{
+    "Id": "fdsa",
+    "Name": "KARINA",
+    "memo": "memomo"
+}
+
+###
+
+GET {{pokenae_WebApp_HostAddress}}/api/cp_gart/te
+
+###
