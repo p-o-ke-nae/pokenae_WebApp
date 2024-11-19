@@ -1,12 +1,25 @@
 ﻿@pokenae_WebApp_HostAddress = https://localhost:7255
 
+POST https://pokenae-hrbndabnb6btgtbq.japaneast-01.azurewebsites.net/api/Values
+Content-Type: application/json
+
+{
+    "id": "KARINA",
+    "name": "KARINA",
+    "memo": "memomo",
+    "aa": "test"
+}
+
+###
+
 POST {{pokenae_WebApp_HostAddress}}/api/values
 Content-Type: application/json
 
 {
-    "Id": "fdsa",
-    "Name": "KARINA",
-    "memo": "memomo"
+    "id": "KARINAtest",
+    "name": "KARINA",
+    "memo": "memomo",
+    "aa": "test"
 }
 
 ###
@@ -14,3 +27,5 @@ Content-Type: application/json
 GET {{pokenae_WebApp_HostAddress}}/api/cp_gart/te
 
 ###
+
+
