@@ -33,3 +33,7 @@ GET {{pokenae_WebApp_HostAddress}}/api/cp_gart/te
 GET {{pokenae_WebApp_HostAddress}}/api/values
 
 ###
+
+GET https://pokenae-hrbndabnb6btgtbq.japaneast-01.azurewebsites.net/api/values
+
+###
