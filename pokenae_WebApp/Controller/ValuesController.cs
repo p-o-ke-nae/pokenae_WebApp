@@ -14,7 +14,7 @@ namespace pokenae_WebApp.Controller
         public string Get()
         {
             var settings = "{\r\n  \"usingpluginid_videocapture\": \"VCT0001\",\r\n  \"settingsjson_videocapture\": [\r\n    \"{\\\"left\\\":-7,\\\"right\\\":3,\\\"top\\\":-30,\\\"bottom\\\":3,\\\"width\\\":380,\\\"height\\\":330}\",\r\n    \"\"\r\n  ],\r\n  \"usingpluginid_imagerecognition\": \"IRT0001\",\r\n  \"settingsjson_imagerecognition\": [\r\n    \"\"\r\n  ],\r\n  \"settingsjson_imageprocessing\": [],\r\n  \"crslistjson\": \"[{\\\"name\\\":\\\"h\\\",\\\"pluginid\\\":\\\"ICRT0001\\\",\\\"pluginname\\\":\\\"文字認識プラグインテスト1\\\",\\\"pluginsettingsjson\\\":\\\"\\\",\\\"x\\\":0,\\\"y\\\":0,\\\"width\\\":40,\\\"height\\\":20},{\\\"name\\\":\\\"a\\\",\\\"pluginid\\\":\\\"ICRT0001\\\",\\\"pluginname\\\":\\\"文字認識プラグインテスト1\\\",\\\"pluginsettingsjson\\\":\\\"\\\",\\\"x\\\":0,\\\"y\\\":0,\\\"width\\\":40,\\\"height\\\":20},{\\\"name\\\":\\\"b\\\",\\\"pluginid\\\":\\\"ICRT0001\\\",\\\"pluginname\\\":\\\"文字認識プラグインテスト1\\\",\\\"pluginsettingsjson\\\":\\\"\\\",\\\"x\\\":0,\\\"y\\\":0,\\\"width\\\":40,\\\"height\\\":20},{\\\"name\\\":\\\"c\\\",\\\"pluginid\\\":\\\"ICRT0001\\\",\\\"pluginname\\\":\\\"文字認識プラグインテスト1\\\",\\\"pluginsettingsjson\\\":\\\"\\\",\\\"x\\\":0,\\\"y\\\":0,\\\"width\\\":40,\\\"height\\\":20}]\",\r\n  \"captureno\": 0,\r\n  \"captureimagelistmax\": 5,\r\n  \"fps\": 70,\r\n  \"settingsdownloadapiurl\": \"\"\r\n}";
-            var settingsobj = "{\"settings\": \"" + settings + "\", \"settingspath\": " + "\"configs/config.json\"" + "}";
+            var settingsobj = "{\"settings\": " + settings + ", \"settingspath\": " + "\"configs/config.json\"" + "}";
 
             return settingsobj;
         }
