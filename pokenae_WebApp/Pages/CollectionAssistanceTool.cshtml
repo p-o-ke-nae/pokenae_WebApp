@@ -1,0 +1,70 @@
+﻿@page
+@model pokenae_WebApp.Pages.CollectionAssistanceToolModel
+
+<h3>Collection Assistance Tool</h3>
+
+@if (Model.Columns == null || Model.Records == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table id="dataTable">
+        <thead>
+            <tr>
+                @foreach (var column in Model.Columns.Where(c => c.IsVisible))
+                {
+                    <th style="width:@column.Width">@column.Header</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model.Records)
+            {
+                <tr>
+                    @foreach (var column in Model.Columns.Where(c => c.IsVisible))
+                    {
+                        <td>@record[Model.Columns.IndexOf(column)]</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <script>
+        const columnIndices = @Html.Raw(Json.Serialize(Model.Columns.Where(c => c.IsVisible).Select(c => Model.Columns.IndexOf(c)).ToList()));
+        const spreadsheetId = "15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c";
+        const baseUrl = "https://script.google.com/macros/s/AKfycby0eB-AnstPy3b3m_ghF1rcZnNpUWqmuM4ZXWPY0-9n0iCqdoStfR0GBfgAIu3lMRP2/exec";
+
+        async function fetchData() {
+            const url = `${baseUrl}?spreadsheetId=${spreadsheetId}&sheetName=Record`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                console.error("Failed to fetch data: " + response.statusText);
+                return [];
+            }
+            const data = await response.json();
+            return data;
+        }
+
+        async function updateTable() {
+            const data = await fetchData();
+            const tbody = document.querySelector("#dataTable tbody");
+            tbody.innerHTML = "";
+
+            data.forEach((row) => {
+                const tr = document.createElement("tr");
+                columnIndices.forEach((columnIndex) => {
+                    const td = document.createElement("td");
+                    td.innerText = row[columnIndex];
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+        }
+
+        setInterval(updateTable, 1000);
+    </script>
+}
