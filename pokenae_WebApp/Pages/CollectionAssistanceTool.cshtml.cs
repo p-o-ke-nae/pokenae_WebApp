@@ -14,7 +14,6 @@ namespace pokenae_WebApp.Pages
         }
 
         public IList<ColumnInfo> Columns { get; private set; }
-        public IList<IList<object>> Records { get; private set; }
 
         public class ColumnInfo
         {
@@ -44,7 +43,6 @@ namespace pokenae_WebApp.Pages
                 }
             }
 
-            Records = await _googleSheetsService.GetSheetDataAsync(spreadsheetId, "Record");
         }
     }
 }

@@ -1,10 +1,256 @@
 ﻿@page
+@using Components
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+<div style="margin-left:10px;margin-right:10px;">
+    <!--スライドショー 参考https://rilaks.jp/blog/carousel/-->
+    @* <div class="pokenaeTopSlide">
+        <ul class="slider">
+            <li class="pokenaetopimage js-based">
+                <a href="/" target="_blank"><img class="pokenaeTopSlide_Imgsize" src="/" alt=""></a>
+            </li>
+
+        </ul>
+    </div> *@
+    
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100 fixed-height" src="https://ozaroom.com//tool/images/ivtool/ivtool_promotion.png" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 fixed-height" src="data:image/jpeg;base64,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" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 fixed-height" src="https://ozaroom.com///showcase/images/darilbalde/IMG_4487.JPG" alt="Third slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <!--NEWS-->
+    <div class="news_ticker2">
+        <ul>
+            <li class="pokenaenews js-based">
+                <a class="news_link"></a>
+            </li>
+        </ul>
+        <ul>
+            <li class="pokenaenews2 js-based">
+                <a class="news_link"></a>
+            </li>
+        </ul>
+        <ul>
+            <li class="pokenaenews3 js-based">
+                <a class="news_link"></a>
+            </li>
+        </ul>
+    </div>
 </div>
+
+<!--メイン-->
+<div id="pokenae_contents">
+    <div id="pokenae_contentsWrap">
+        <div class="pokenae_main_2col">
+            <!--PICKUP-->
+            <!--===============================================================================-->
+            <ul class="pokenae_itemsindex" id="indexPickUpTitle">
+                <h3 class="pokenae_subtitleindex">
+                    <span>PICKUP</span>
+                </h3>
+                <li class="pokenae_items_block js-based" id="pokenae_indexPICKUP_items">
+                    <a href="/" class="pokenae_items_link">
+                        <div class="pokenae_items_img">
+                            <img src="/" alt="">
+                        </div>
+                        <p>
+                            <span class="pokenae_items_wrap">
+                                <span class="pokenae_items_tag"></span>
+                                <span class="pokenae_items_title"></span>
+                                <span class="pokenae_items_summary"></span>
+                                <span class="pokenae_items_date"></span>
+                            </span>
+                        </p>
+                    </a>
+                </li>
+
+
+            </ul>
+
+            <!--INFO-->
+            <!--===============================================================================-->
+            <ul class="pokenae_itemsindex">
+                <h3 class="pokenae_subtitleindex">
+                    <span>INFO</span>
+                </h3>
+
+                <div class="pokenae_info_scroll">
+                    <li class="info2 js-based" id="pokenae_info2_items"></li>
+                    <div class="info3 js-based" id="pokenae_info3_items"><a></a><span></span></div>
+                </div>
+
+                <div style="font-size:17px;margin-left:20px;padding-bottom:10px;">
+                    <a href="others/infopokenae.html">さらに表示</a>
+                </div>
+
+            </ul>
+
+            <!--BLOG-->
+            <!--===============================================================================-->
+            <ul class="pokenae_itemsindex" id="BLOGTitle">
+                <h3 class="pokenae_subtitleindex">
+                    <span>BLOG</span>
+                </h3>
+                <li class="pokenae_items_block js-based" id="pokenae_BLOG_items">
+                    <a href="/" class="pokenae_items_link">
+                        <div class="pokenae_items_img">
+                            <img src="/" alt="">
+                        </div>
+                        <p>
+                            <span class="pokenae_items_wrap">
+                                <span class="pokenae_items_tag"></span>
+                                <span class="pokenae_items_title"></span>
+                                <span class="pokenae_items_summary"></span>
+                                <span class="pokenae_items_date"></span>
+                            </span>
+                        </p>
+                    </a>
+                </li>
+
+                <div style="font-size:17px;margin-left:20px;padding-bottom:10px;">
+                    <a href="blog/blog_index.html">さらに表示</a>
+                </div>
+
+            </ul>
+
+
+
+
+            <!--SNS-->
+            <!--===============================================================================-->
+            <ul class="pokenae_itemsindex">
+                <h3 class="pokenae_subtitleindex">
+                    <span>SNS</span>
+                </h3>
+                <pokenaeitem href="https://twitter.com/p_o_ke_nae" image-src="https://pbs.twimg.com/profile_images/1683503038135250944/AehRWEi3_400x400.jpg" image-alt="" tag="" title="Twitter" summary="" date="p_o_ke_nae"></pokenaeitem>
+                <pokenaeitem href="https://discord.gg/pE4D4BtDyM" image-src="https://play-lh.googleusercontent.com/McVkTazCaveLwqoDuX_E7ayTgdK4DPbrKCGcPSIZT4b783j6HJvJYu0uxQAuzCw7BCs" image-alt="" tag="" title="Discord" summary="ツールの先行公開やデモ" date="無期限"></pokenaeitem>
+                <pokenaeitem href="https://www.youtube.com/@@p_o_ke_nae" image-src="data:image/png;base64,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" image-alt="" tag="" title="YouTube" summary="ツールのデモプレイなど" date="p_o_ke_nae"></pokenaeitem>
+
+            </ul>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+    
+<script>
+    /*テロップニュースのやつ*/
+    var api_url = 'https://script.google.com/macros/s/AKfycby7xNBn0fxV4VFGHcoQFBiaoHr7sEEjw37pcvkwICeZMmF_GIunPw_1CXGvW5oUjrpsIA/exec';
+    var RowCount = 1;
+    let strlength = 0;
+    fetch(api_url)
+        .then(function (fetch_data) {
+        return fetch_data.json();
+        })
+        .then(function (json) {
+        for (var i in json) {
+            var base_element = document.getElementsByClassName('pokenaenews js-based');
+            var clone_element = base_element[0].cloneNode(true);
+            clone_element.classList.remove('js-based');
+            var base_element2 = document.getElementsByClassName('pokenaenews2 js-based');
+            var clone_element2 = base_element2[0].cloneNode(true);
+            clone_element2.classList.remove('js-based');
+            var base_element3 = document.getElementsByClassName('pokenaenews3 js-based');
+            var clone_element3 = base_element3[0].cloneNode(true);
+            clone_element3.classList.remove('js-based');
+
+            if(json[i].text == "") {
+                clone_element.querySelector('a').setAttribute('href',  "/");
+                base_element[0].parentNode.appendChild(clone_element);
+                clone_element2.querySelector('a').setAttribute('href',  "/");
+                base_element2[0].parentNode.appendChild(clone_element2);
+                clone_element3.querySelector('a').setAttribute('href',  "/");
+                base_element3[0].parentNode.appendChild(clone_element3);
+                var base_element_ul = document.getElementsByClassName('news_ticker2');
+                var slideuls = base_element_ul[0].querySelectorAll('ul');
+                for(let uli in slideuls) {
+                    if(slideuls.hasOwnProperty(uli)) {
+                        slideuls[uli].style.animation = "hscroll2 " + strlength / 5 + "s linear infinite";
+                    }
+                }
+                break;
+            }
+
+            var myLink = json[i].link;
+            if(myLink == "") {
+                myLink = "/";
+            } else {
+                clone_element.querySelector('a').setAttribute('href',  myLink);
+                clone_element.querySelector('a').setAttribute('target',  "_blank");
+                clone_element2.querySelector('a').setAttribute('href',  myLink);
+                clone_element2.querySelector('a').setAttribute('target',  "_blank");
+                clone_element3.querySelector('a').setAttribute('href',  myLink);
+                clone_element3.querySelector('a').setAttribute('target',  "_blank");
+            }
+
+            if(json[i].tag == "2") {
+                clone_element.querySelector('a').setAttribute('style',  "font-weight: bold;");
+                clone_element2.querySelector('a').setAttribute('style',  "font-weight: bold;");
+                clone_element3.querySelector('a').setAttribute('style',  "font-weight: bold;");
+            } else if(json[i].tag == "0") {
+                clone_element.querySelector('a').setAttribute('style',  "color: rgba(0,0,0,0);");
+                clone_element2.querySelector('a').setAttribute('style',  "color: rgba(0,0,0,0);");
+                clone_element3.querySelector('a').setAttribute('style',  "color: rgba(0,0,0,0);");
+            } else if(json[i].tag == "999") {
+                clone_element.querySelector('a').setAttribute('style',  "color: red;font-weight: bold;background-color:yellow;");
+                clone_element2.querySelector('a').setAttribute('style',  "color: red;font-weight: bold;background-color:yellow;");
+                clone_element3.querySelector('a').setAttribute('style',  "color: red;font-weight: bold;background-color:yellow;");
+            }
+
+            var newstext = json[i].text;
+            strlength = strlength + newstext.length;
+            clone_element.querySelector('a').textContent = newstext;
+            base_element[0].parentNode.appendChild(clone_element);
+            clone_element2.querySelector('a').textContent = newstext;
+            base_element2[0].parentNode.appendChild(clone_element2);
+            clone_element3.querySelector('a').textContent = newstext;
+            base_element3[0].parentNode.appendChild(clone_element3);
+            RowCount = RowCount + 1;
+        }
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    .fixed-height {
+        height: 500px; /* 固定の高さを設定 */
+        object-fit: cover; /* トリミングして表示 */
+    }
+</style>
+
+<script>
+    //ポケなえのトップページ画像
+    var api_url = 'https://script.google.com/macros/s/AKfycbwnmwz1qk2';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,0 +1,1286 @@
+@charset "utf-8";
+
+.mytitle{
+    font-size:30px;
+    
+    font-weight:bold;
+
+    border-left:solid 8px black;
+    border-top:solid 1px gray;
+    border-bottom:solid 1px gray;
+
+    background-color: #e0e0e0;
+    color:#000000;
+
+    padding-top:5px;
+    padding-bottom:3px;
+    margin-bottom:2px;
+    
+    padding-left:10px;
+    line-height: 1.2;
+
+    font-family: sans-serif;
+
+}
+.myday{
+    font-size:20px;
+    
+    font-weight:bold;
+
+    text-align: right;
+
+    margin-right:5px;
+
+    color:#999999;
+
+    margin-top:10px;
+    margin-bottom:50px;
+    line-height: 1.2;
+
+    font-family: sans-serif;
+}
+
+.pokenae_subindex_title{
+    margin-bottom:30px;
+}
+
+
+/*未訪問リンク*/
+a:link {
+    color: black;
+}
+/*訪問済みリンク*/
+a:visited {
+    color: black;
+}
+/*ホバー*/
+a:hover {
+    color: #AA85A7;
+}
+/*ユーザーの操作で要素がアクティブになった際*/
+a:active {
+    color:#AA85A7;
+}
+
+/*下線なしリンク*/
+.notLineLink{
+    
+    text-decoration: none;
+    
+}
+
+
+
+
+/*========================================================================================================*/
+
+
+/*一覧へ飛んだりするボタン*/
+.myBtn{
+    /*コレ*/border-radius: 95px;
+    display: block;
+    width: 200px;
+    padding: 1px;
+    box-sizing: border-box;
+    /*background: #6fa1ff;*/
+    border: solid 4px #000000;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+
+    font-size:20px;
+
+    margin-left:auto;
+    margin-right:auto;
+
+    position: relative;
+
+    margin-top:10px;
+}
+.myBtn::before { /* くの字の表示設定 */
+    content: "";
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 2px;
+    width: 13px;    /* くの字を山なりに見た時、左側の長さ */
+    height: 13px;   /* くの字を山なりに見た時、右側の長さ */
+    border-top: 3px solid #000;     /* くの字を山なりに見た時、左側の太さと色 */
+    border-right: 3px solid #000;   /* くの字を山なりに見た時、右側の太さと色 */
+    transform: rotate(45deg);    /* くの字の向き */
+}
+.myBtnStr{
+    color:#000000;
+}
+
+
+
+/*ヘッダー*/
+/*============================================================================*/
+@media screen and (min-width: 601px) {
+
+    .btnh{
+        min-width:130px;
+        
+        font-size: 20px;
+    
+    }    
+    header .gnav{
+        width:calc(100% - ((90px + 10px) + (10px)) * 2);/*100%-(logosize+logomargin+margin)*2*/
+        min-width:calc((130px + 5px + 5px / 4) * 4);
+        margin-right:110px;
+    }
+    
+}
+@media screen and (max-width: 600px) {
+
+    .btnh{
+        min-width:83px;
+        
+        font-size: 13px;
+    
+    }
+    
+}
+/*ボタンサイズの調整*/
+/*(ボタン幅+margin+margin/4)*4 */
+@media screen and (max-width: calc(((130px + 5px + 5px / 4) * 4 + 100px * 2 + 10px) + 30px )) {
+
+    header .gnav{
+        display: block;
+        width:100%;
+        margin-right:10px;
+        
+    }
+    
+}
+
+header {
+    width: 100%; /* 幅いっぱいを指定 */
+    
+    /*box-sizing: border-box; /* padding分を含んで幅を100%にするため */
+    top: 0; /* 上下の固定位置を上から0pxにする */
+    left: 0; /* 左右の固定位置を左から0pxにする */
+    
+    z-index: 10000;
+
+    font-size:20px;
+
+    font-family:sans-serif;
+    
+    font-weight: bold;
+
+    margin: 0 auto;
+    margin-bottom:15px;
+    
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);/*影*/
+    
+}
+
+/*ロゴ管理*/
+/*===================================================================*/
+header .imagemyLogo{
+    /*画像を枠にそろえる*/
+    display: flex;
+    flex-wrap:wrap;
+
+    object-fit: cover;
+    width:90px;
+    height:90px;
+    
+    margin-left:10px;
+    margin-top:10px;
+    
+}
+/*====================================================================*/
+
+/*ヘッダーのボタン*/
+.btnh{
+    margin:auto;
+    width:calc(25% - 5px - 5px / 4);/*25%-margin-margin/4*/
+    
+    text-align: center;
+    list-style: none;
+    display: inline-block;
+    box-sizing: border-box;
+
+    margin-left:5px;
+    
+    /*デザイン*/
+    /*border-left:solid 2px #dcd2df;*/
+    border-left:solid 2px #c1bbc4;
+    border-bottom:solid 5px #c1bbc4;
+    border-right:solid 2px #c1bbc4;
+    border-top:solid 2px #c1bbc4;
+    color:#000;
+    border-radius: 5px;
+    
+    padding-top:30px;
+    padding-bottom:10px;
+    margin-top:5px;
+
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #d8cbd7 50%, #d8cbd7 100%);
+
+}
+header .gnav{
+    margin-left:10px;
+    font-size:0px;
+}
+header nav{
+    margin:0;
+    
+}
+.inner  {
+    align-items: center;
+    display: flex;/*子要素同士を横並びにするので，孫には関係ない*/
+    flex-wrap: wrap;            /* 折り返し指定 */
+    margin-inline: auto;
+    
+    padding: 10px 0;
+}
+
+
+
+/*ハンバーガーメニュー*/
+/*========================================================================================================*/
+/*ボタン部分*/
+.menu-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+    background-color: #6d4577;
+    
+}
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    position: absolute;
+    
+}
+.menu-btn span:before {
+    bottom: 8px;
+}
+.menu-btn span:after {
+    top: 8px;
+}
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);/*メニューオープン時は真ん中の線を透明にする*/
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+#menu-btn-check {
+    display: none;
+}
+/*メニュー部分*/
+.menu-content {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 100%;/*leftの値を変更してメニューを画面外へ*/
+    z-index: 80;
+    background-color: #6d4577;
+    transition: all 0.5s;/*アニメーション設定*/
+}
+#menu-btn-check:checked ~ .menu-content {
+    left: 60%;/*メニューを画面内へ メニュー画面の全画面に対する割合*/
+}
+#menu-btn-check:checked ~ .hamburger-demo-cover{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 79;
+	background: rgba(3,3,3,.5);
+	display: block;
+}
+
+.menu-content ul {
+    padding: 70px 10px 0;
+}
+.menu-content ul li {
+    border-bottom: solid 1px #ffffff;
+    list-style: none;
+}
+.menu-content ul li a {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    box-sizing: border-box;
+    color:#ffffff;
+    text-decoration: none;
+    padding: 9px 15px 10px 0;
+    position: relative;
+}
+.menu-content ul li a::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: solid 2px #ffffff;
+    border-right: solid 2px #ffffff;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 65%;/*メニューのリンクの矢印の位置*/
+    top: 16px;
+}
+/*======================================================================================================*/
+
+
+/*===========================================================================================================================*/
+
+/*フッター*/
+/*===================================================================*/
+@media screen and (min-width: 601px) {
+
+    footer .btn{
+        width:calc(25% - 2px - 10px - (10px/4));/*20%-border-margin-(margin/block数)*/
+    
+    }
+    
+}
+@media screen and (max-width: 600px) {
+
+    footer .btn{
+        width:calc(100% - 10px);
+
+        
+    }
+    
+}
+
+footer{
+    padding-top:30px;
+    color:#ffffff;
+    background-color: #6d4577;
+    border-top: 2px solid gray;
+    
+
+    font-size:0;/*子要素のinline-blockの改行によってできる空白をなくす*/
+    list-style-type: none;/*箇条書きの・をなくす?*/
+    padding:0px;/*デフォルトのpadding-left:40px;をなくす*/
+    
+}
+footer .btn{
+    display: inline-block;
+    margin-left:10px;
+    margin-top:10px;
+    color:#ffffff;
+    border-right: 2px solid #ffffff;
+    font-size: 17px;
+}
+footer a{
+    color:#ffffff;
+}
+footer a:link {
+    color: #ffffff;
+}
+/*訪問済みリンク*/
+footer a:visited {
+    color: #ffffff;
+}
+footer a:hover {
+    color: #AA85A7;
+}
+/*ユーザーの操作で要素がアクティブになった際*/
+footer a:active {
+    color:#AA85A7;
+}
+footer .imagemyPro{
+    display: block;
+    margin-top:20px;
+    margin-left:10px;
+    margin-bottom:10px;
+    width:60px;
+    height:60px;
+}
+.mycopyright{
+    font-size:14px;
+    margin-left:5px;
+    padding-bottom:10px;
+}
+/*===================================================================*/
+
+
+
+
+/*プロフィール画像*/
+.imagemyPro{
+    width:60px;
+    height:60px;
+    background-image: url("../ozaプロフィール画像.png");
+    background-size: cover;
+    background-position: center;
+    z-index: 10000;
+}
+/*ロゴ画像*/
+.imagemyLogo{
+    background-image: url("../pokenaeLogo.png");
+    width:90px;
+    height:90px;
+    background-size: cover;
+    background-position: center;
+    z-index: 10000;
+}
+
+
+
+
+
+
+
+
+/*=========================================================================*/
+
+/*途切れずにループするテロップ*/
+/*=========================================================================*/
+
+.news_ticker2 {
+	width:calc(100%-60px);
+    height:30px;
+	overflow:hidden;
+	white-space:nowrap;
+    opacity: 1;
+
+    padding-top:6px;
+    padding-bottom:4px;
+    
+    background-color: #303030;
+    font-size: 20px;
+    color: #e5e7f0;
+    
+    top: 0;
+    bottom: 0;
+    
+    border:solid 7px #AA85A7;
+    border-left:solid 30px #AA85A7;
+    border-right:solid 30px #AA85A7;
+
+    margin-bottom:15px;
+
+    border-radius: 5px;
+
+}
+@keyframes hscroll2 {
+	0% { transform:translateX(4px); }
+	100% { transform:translateX(-100%); }
+}
+.news_ticker2 ul {
+	display:inline-block;
+	margin:0;
+	padding:0;
+	animation:hscroll2 20s linear infinite;
+    
+}
+.news_ticker2 li {
+	display:inline-block;
+    margin:0 50px 0 0;
+}
+.news_link{
+    font-size: 20px;
+    color: #e5e7f0;
+}
+/*未訪問リンク*/
+.news_link:link {
+    color: #e5e7f0;
+}
+/*訪問済みリンク*/
+.news_link:visited {
+    color: #e5e7f0;
+}
+/*ホバー*/
+.news_link:hover {
+    color: #AA85A7;
+}
+/*ユーザーの操作で要素がアクティブになった際*/
+.news_link:active {
+    color:#AA85A7;
+}
+
+/*.news_ticker2 ul li:nth-child(2){
+    /*font-weight:bold;*/
+/*}*/
+/*.news_ticker2 ul li:nth-child(3){
+    /*font-weight:bold;*/
+/*}*/
+.news_ticker2 ul li:last-child{
+    margin:0;
+}
+
+/*=========================================================================*/
+
+
+/*Twitter*/
+/*=======================================================================*/
+.twitter-timeline{
+    margin:0px auto;
+}
+
+
+.pokenaeTopSlide ul{
+    padding:0px;
+    background-color: #ffffff;
+}
+
+/*動く止まるを繰り返す横スライドの設定(ホームのやつ)*/
+/*===================================================*/
+@media screen and (min-width: 1000px) {
+    .slider-area {
+        overflow: hidden;;
+        
+     }
+    .slick-slide {
+        max-width: 1000px;
+        width: 100% !important;
+    }
+    .slick-current {
+      padding-left: 5px;/*画像間の隙間*/
+      padding-right: 5px;/*画像間の隙間*/
+      
+    }
+    .pokenaeTopSlide{
+        margin:auto;
+        
+    }
+}
+.pokenaeTopSlide_Imgsize .js-based{
+    display: none;
+}
+.pokenaeTopSlide_Imgsize {
+    /*画像を枠にそろえる*/
+    display: flex;
+    
+    object-fit: cover;
+    width: 100%;
+    
+    margin-left:0px;
+    
+}
+
+/*===================================================*/
+
+/*スマホ考慮*/
+@media screen and (min-width: 601px) {
+
+    .pokenaeTopSlide_Imgsize {
+        height: 500px;
+    
+        
+    }
+    
+}
+@media screen and (max-width: 600px) {
+
+    .pokenaeTopSlide_Imgsize {
+        height: 250px;
+    
+        margin-left:0px;
+        
+    }
+    
+}
+
+
+
+
+/*メインとサイドバーの調整*/
+/*=======================================================================*/
+@media screen and (min-width: calc(1201px)){
+    /*サイドバーが横に並んでるとき*/
+    .mysidebar{
+        float: right;
+    
+        width: 300px;
+        margin-left:10px;
+
+        order:0;
+    }
+    #pokenae_contents{
+        display:flex;/*サイドバーとメインコンテンツを横並びにする指定をした*/
+        flex-flow: column;
+    }
+    #pokenae_main_2col{
+        float: left;
+        width:calc(100% - 310px);
+    }
+    
+    /*サイドバー内のアイテムについて*/
+    .mysidebar .pokenae_items_block{
+        width:calc(100% - 4px - 14px - 20px);/*100%-border*2-padding*2-(margin-left*2(左右))*/
+        height:100px;
+
+    }
+    .mysidebar .pokenae_items_title{
+        font-size:14px;
+        height:40%;
+    }
+    .mysidebar .pokenae_items_summary{
+        font-size:11px;
+        height:35%;
+    }
+    .mysidebar .pokenae_items_date{
+        font-size:11px;
+        height:17%;
+    }
+    .mysidebar .pokenae_itemsnews .pokenae_items_title{
+        height:40%;
+        
+    }
+    .mysidebar .pokenae_itemsnews .pokenae_items_summary{
+        background-color: #c9c9c9;
+        height:17%;
+    }
+    
+}
+@media screen and (max-width: calc(1200px)){
+    /*サイドバーが下に回り込んだとき*/
+    .mysidebar{
+        width: 100%;
+        order:10000;
+    }
+    #pokenae_main_2col{
+        width: 100%;
+    }
+
+    
+    
+}
+
+
+/*メイン画像とサブ列の調整*/
+@media screen and (min-width: calc(801px)){
+    #pokenaetool_gallery{
+        display:flex;
+        
+    }
+    #pokenaetool_gallery_main{
+        width: calc(100% - 350px);
+    }
+    #pokenaetool_gallery_col2{
+        padding: 0;
+        width:350px;
+        height:100%;
+        margin: 0px 0px 0px 0px;
+    
+    }
+    .indicator{
+        display: none;
+    }
+}
+@media screen and (max-width: calc(800px)){
+    #pokenaetool_gallery_main{
+        width:90%;
+        margin-left:5%;
+    }
+    #pokenaetool_gallery_col2{
+        padding: 0;
+        width:100%;
+        height:100%;
+        margin-top:10px;
+    }
+    #pokenaetool_gallery_sub{
+        display: none;
+    }
+    .indicator{
+        display: flex;
+    }
+    
+    #pokenaetool_gallery_main p{
+        display: none;
+    }
+}
+
+/*ホバーイベント*/
+@media (hover: hover) {
+    .slide-wrapper:hover .slide-controls-direction{
+        display: block;
+    }
+    .slide-wrapper .next:hover {
+        background-image:url(../images/pokenae_btn2.png);
+    }
+    .slide-wrapper .prev:hover {
+        background-image:url(../images/pokenae_btn2.png);
+    }
+    .pokenaetool_downloadBtnCount:hover{
+        
+        background-size: 200% 500%;
+        background-position-x: 100%;
+        background-position-y: 0px;
+    }
+
+    /*古いやつ*/
+    .downloadbtn:hover{
+        
+        background-size: 200% 500%;
+        background-position-x: 100%;
+        background-position-y: 0px;
+    }
+
+    
+}
+
+/*サイドバー*/
+/*==========================================================================================================================*/
+.mysidebar {
+    display: block;
+    
+    margin-bottom: 15px;
+
+    order:10000;
+    
+}
+
+/*メイン部分，サイドバーと同列で並んだりもする*/
+#pokenae_main_2col{
+    float: left;
+    margin:0 auto;
+    height:auto;
+    padding-bottom:15px;
+    
+    display: block;
+}
+
+#pokenae_page_detail{
+    width:100%;
+    
+}
+
+#pokenae_alertmess{
+    color:#ff0000;
+}
+
+/*画像紹介部分の大元*/
+#pokenaetool_gallery{
+    
+    width:100%;
+    
+    margin:10px 0 0 0;
+
+}
+#pokenaetool_gallery_main{
+    overflow: hidden;
+    height:100%;
+    
+    
+}
+#pokenaetool_gallery_main p{
+    margin:0 auto;
+    text-align: center;
+    font-size: 13px;
+
+}
+/* ↓ スライドの外枠 */
+.slide-wrapper {
+    height: 450px;
+    
+    position: relative;
+    overflow: hidden; /* はみ出したスライドを隠す */
+
+    margin:0 0 0 0 ;
+    border: 1px solid #cccccc;
+    
+    background-color: #ffffff;
+
+}
+/*  ↓ スライド（コンテンツ） */
+.slide-viewport { /*スライド全体の画像を連結させたもの */
+    width: 1200%;/*スライドのサイズ*/
+    height: 100%;
+    display: flex;
+    transition: all 0.3s;/*アニメーション*/
+}
+
+.slide-viewport .js-based{
+    display: none;
+}
+.pokenaetool_gallery_main_part{ /* スライド */
+    width:100%;
+    height:100%;
+}
+.pokenaetool_gallery_main_part img{
+    position: absolute;
+    object-fit: contain;
+    width:8.333%;
+    height:100%;
+    max-width:100%;
+    max-height:100%;
+    cursor: pointer;
+}
+.slide1 { /* スライドさせるために必要なクラス */
+    transform: translateX(0);
+}
+.slide2 { /* スライドさせるために必要なクラス */
+    transform: translateX(-8.33%);
+}
+.slide3 { /* スライドさせるために必要なクラス */
+    transform: translateX(-16.66%);
+}
+.slide4 { /* スライドさせるために必要なクラス */
+    transform: translateX(-25%);
+}
+.slide5 { /* スライドさせるために必要なクラス */
+    transform: translateX(-33.33%);
+}
+.slide6 { /* スライドさせるために必要なクラス */
+    transform: translateX(-41.66%);
+}
+.slide7 { /* スライドさせるために必要なクラス */
+    transform: translateX(-50%);
+}
+.slide8 { /* スライドさせるために必要なクラス */
+    transform: translateX(-58.33%);
+}
+.slide9 { /* スライドさせるために必要なクラス */
+    transform: translateX(-66.66%);
+}
+.slide10 { /* スライドさせるために必要なクラス */
+    transform: translateX(-75%);
+}
+.slide11 { /* スライドさせるために必要なクラス */
+    transform: translateX(-83.33%);
+}
+.slide12 { /* スライドさせるために必要なクラス */
+    transform: translateX(-91.66%);
+}
+
+.slide-wrapper .slide-controls_hasdirection a{
+    position:absolute;
+    top: 50%;
+    margin-top: -16px;
+    outline: 0;
+    width: 37px;
+    height: 37px;
+    text-indent: -9999px;
+    z-index: 9999;
+    
+    cursor: pointer;
+}
+/* ↓ 左右のボタン */
+.slide-wrapper .next {
+    right: 25px;
+    background-image:url(../images/pokenae_btn1.png);
+    background-size: 200%;
+    background-position-x: 100%;
+    background-position-y: 0px;
+}
+.slide-wrapper .prev {
+    left: 25px;
+    background-image:url(../images/pokenae_btn1.png);
+    background-size: 200%;
+    background-position-x: 0px;
+    background-position-y: 0px;
+}
+.slide-controls-direction{
+    display: none;
+    opacity:0.6;/*左右のボタンの透明度*/
+}
+
+/* ↓ インジケーター */
+.indicator {
+    width: 100%;
+    height:auto;
+    position: absolute;
+    bottom: 2px;
+    column-gap: 18px;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+}
+.indicator li {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    list-style: none;
+    background-color: #fff;
+    border: 1px #cccccc solid;
+    cursor: pointer;
+}
+.indicator li:first-of-type {
+    background-color: #cccccc;
+}
+.indicator .js-based{
+    display: none;
+}
+
+/*ツール紹介ページのサブ画像と表を格納する場*/
+#pokenaetool_gallery_col2{
+    padding: 0;
+    height:100%;
+
+}
+
+/*ツール紹介ページのサブ画像*/
+#pokenaetool_gallery_sub{
+    margin: 0px 0px 0px 0px;
+    padding: 0;
+    width:100%;
+    height:335px;
+}
+#pokenaetool_gallery_sub li{
+    float: left;
+    width: 103px;
+    height: 75px;
+    margin: 0px 0px 5px 5px;
+    overflow: hidden;
+    padding: 0;
+    
+    border: 1px solid #cccccc;
+    
+    background-color: #ffffff;
+}
+#pokenaetool_gallery_sub li a{
+    display: table-cell;
+    height: 75px;
+    line-height: 75px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    
+    cursor: pointer;
+}
+.pokenaetool_gallery_sub_img{
+    display: inline-block;
+    margin: 0;
+}
+
+/*サブ画像を整える*/
+#pokenaetool_gallery_sub li a img{
+    display: inline;
+    width:100%;
+    height: auto;
+    margin: 0;
+    
+}
+#pokenaetool_gallery_sub .js-based{
+    display: none;
+}
+
+/*ツール紹介ページの表*/
+#pokenaetool_view{
+    
+    width:90%;
+    bottom:0px;
+    height:auto;
+    margin-left: 5%;
+    margin-top: 5px;
+    bottom:10px;
+
+    font-family:sans-serif;
+}
+#pokenaetool_table{
+    border-collapse: collapse;
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+
+    font-size: 15px;
+}
+#pokenaetool_table th, #pokenaetool_table td{
+    border:1px solid #a1a1a1;
+}
+#pokenaetool_table th{
+    background-color: #f3f3f3;
+    width:120px;
+}
+#pokenaetool_table td{
+    background-color: #ffffff;
+    padding-left:6px;
+}
+
+
+
+/*ダウンロードボタン*/
+.pokenaetool_downloadBtnCount{
+    /* 背景色を無色に */
+    background: transparent;
+    /* 枠線を消す */
+    border: none;
+    /* クリックした際に枠線をnone消す */
+    outline: none;
+    /* 影を消す */
+    box-shadow: none;
+    
+    display:block;
+    margin:0 auto;
+    margin-top: 10px;
+    outline: 0;
+    width: 175px;
+    height: 35px;
+    text-indent: -9999px;
+    z-index: 9999;
+    font-size: 5px;
+    cursor: auto;
+
+    background-image:url(../images/pokenae_Downloadbtn1.png);
+
+    background-size: 200% 500%;
+    background-position-x: 0px;
+    background-position-y: -300%;
+
+    /* SPの長押し禁止 */
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    
+    user-select:none;
+}
+
+/*古いやつ*/
+.pokenaetool_download a{
+    display:block;
+    margin:0 auto;
+    margin-top: 10px;
+    outline: 0;
+    width: 175px;
+    height: 35px;
+    text-indent: -9999px;
+    z-index: 9999;
+    font-size: 5px;
+    cursor: auto;
+}
+.downloadbtn{
+    background-image:url(../images/pokenae_Downloadbtn1.png);
+
+    background-size: 200% 500%;
+    background-position-x: 0px;
+    background-position-y: -300%;
+
+    /* SPの長押し禁止 */
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    
+    user-select:none;
+}
+
+/*ツール紹介ページの説明欄*/
+.pokenae_explain{
+    font-family:sans-serif;
+    align-items: center; /* 中の要素を上下中央に並べる */
+}
+.pokenae_explain ul{
+    padding-left:20px;
+    list-style-type: square;
+}
+.pokenae_explain .pokenae_items{
+    padding:0px;/*デフォルトのpadding-left:40px;をなくす*/
+    
+}
+.pokenae_explain h4{
+    font-size:17px;
+    margin:0;
+    background-color: #cacaca;
+    
+}
+.pokenae_explain ol{
+    list-style: decimal;
+}
+
+.pokenaetool_checkbox_explain{
+    background-color: #cacaca;
+}
+
+
+.c {
+    text-align: center;
+}
+.overlay { /* グレーの背景 */
+  position: fixed;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.2s 0s ease;
+  visibility: hidden;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+#pop-up {
+  display: none;
+}
+#pop-up:checked + .overlay {
+  visibility: visible;
+  opacity: 1;
+  z-index: 100000;
+  background-color: #000000D0;
+  width: 100%;
+}
+.popWindow {
+  border-radius: 5px;
+  overflow: auto; /* スクロールバー用 */
+  max-height: 95%; /* すき間 */
+  min-width: min-content; /* 横幅が広い時に白の部分が大きくならないため */
+  max-width: 95%; /* すき間 */
+  position: fixed;
+  top: 50%; /* 中央に */
+  left: 50%; /* 中央に */
+  transform: translate(-50%, -50%); /* 中央に */
+  z-index: 100010;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 10px auto;
+  padding: 4px 10px;
+  background: #FFFD; /* 枠の色 */
+  text-align: center; /* 文字を中央寄せ */
+  transition: all 200ms ease-in-out;
+
+}
+.popWindow .ptitle {
+  font-size: 15px;
+  margin: 8px;
+  color: #333;
+}
+.popWindow .close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  transition: all 200ms;
+  font-size: 24px;
+  line-height: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+  padding: 2px;
+}
+.popWindow .close:hover {
+  color: #a0a0a0;
+}
+.popWindow::-webkit-scrollbar-track {
+  background: none;
+}
+.popWindow::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.popWindow::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 5px;
+}
+.clickable:hover {
+  cursor: pointer;
+}
+
+/*拡大した画像を整える*/
+.popImg{
+    width:100%;
+    height: auto;
+    background-color: #ffffff;
+}
+@media screen and (max-width: 700px){
+  #pop-up:checked + .overlay {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+/*デフォルトの表*/
+.pokenaebasic_table{
+    border-collapse: collapse;
+    width:95%;
+    margin:0 auto;
+
+    font-size: 15px;
+}
+.pokenaebasic_table th, .pokenaebasic_table td{
+    border:1px solid #a1a1a1;
+}
+.pokenaebasic_table th {
+    background-color: #f3f3f3;
+}
+.pokenaebasic_table th .pokenaebasic_table td{
+    background-color: #f3f3f3;
+    /* サイドメニューのスタイル */
+    .page-list-menu {
+        background-color: #6d4577; /* 背景色 */
+        color: #ffffff; /* 文字色 */
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .page-list-menu .menu-tree ul {
+        list-style-type: none;
+        padding-left: 20px;
+    }
+
+    .page-list-menu .menu-tree li {
+        margin: 5px 0;
+    }
+
+    .page-list-menu .menu-tree a {
+        text-decoration: none;
+        color: #ffffff; /* リンクの文字色 */
+        padding: 10px;
+        display: block;
+        border-bottom: 1px solid #ffffff; /* 下線 */
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .page-list-menu .menu-tree a:hover {
+        background-color: #AA85A7; /* ホバー時の背景色 */
+        color: #ffffff; /* ホバー時の文字色 */
+    }
+
+    .page-list-menu .menu-tree .submenu {
+        display: none;
+        padding-left: 20px;
+    }
+
+    .page-list-menu .menu-tree .submenu a {
+        border-bottom: none; /* サブメニューのリンクには下線を付けない */
+    }
+}
+.pokenaebasic_table_row .pokeinfo_td{
+    word-break:break-all;
+    width:33%;
+}
+.pokenaebasic_table .pokeinfo_td td{
+    background-color: #ffffff;
+    padding-left:6px;
+}
+.pokenaebasic_table .js-based{
+    display: none;
+}
+
+#pokenae_pokeinfodetailparent .js-based{
+    display: none;
+}
+.pokenae_pokeinfodetail{
+    border-collapse: collapse;
+    width:95%;
+    margin:0 auto;
+    
+    margin-bottom:50px;
+
+    font-size: 15px;
+}
+.pokenae_pokeinfodetail th, .pokenae_pokeinfodetail td{
+    border:1px solid #a1a1a1;
+}
+.pokenae_pokeinfodetail th{
+    background-color: #f3f3f3;
+    width:30%;
+}
+.pokenae_pokeinfodetail td{
+    background-color: #ffffff;
+    padding-left:6px;
+}

@@ -1,16 +1,44 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - pokenae_WebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/pokenae_WebApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style_home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style_pokenaeItem.css" asp-append-version="true" />
+    <style>
+        .menu-tree ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .menu-tree li {
+            margin: 5px 0;
+        }
+        .menu-tree a {
+            text-decoration: none;
+        }
+        .menu-tree .submenu {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWBRHQCHQX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-ZWBRHQCHQX');
+    </script>
+    <!-- jQuery.jsの読み込み -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">pokenae_WebApp</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,34 +48,99 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/C_PokemonSoft/Index">ROM</a>
+                            <a class="nav-link" asp-area="" asp-page="/C_PokemonSoft/Index">ROM</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="container mt-5">
+        <div class="row">
+            <aside class="col-md-3">
+                <div class="page-list-menu">
+                    <div class="menu-tree">
+                        <ul>
+                            <li>
+                                <a href="#" class="menu-item">ページ1</a>
+                                <ul class="submenu">
+                                    <li><a href="#">サブページ1-1</a></li>
+                                    <li><a href="#">サブページ1-2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="menu-item">ページ2</a>
+                                <ul class="submenu">
+                                    <li><a href="#">サブページ2-1</a></li>
+                                    <li><a href="#">サブページ2-2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="menu-item">ページ3</a>
+                                <ul class="submenu">
+                                    <li><a href="#">サブページ3-1</a></li>
+                                    <li><a href="#">サブページ3-2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="https://docs.google.com/spreadsheets/d/1XsAQK7Xjb-JpYOFdGivVj6nNDzFdGH5T-965yS-ITEc/edit?gid=713879429#gid=713879429" class="menu-item">ページ設計</a>
+                                <ul class="submenu">
+                                    <li><a href="#">サブページ4-1</a></li>
+                                    <li><a href="#">サブページ4-2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+            <main role="main" class="col-md-6 pb-3">
+                @RenderBody()
+            </main>
+            <aside class="col-md-3">
+                <div class="page-list-menu">
+                    <h2 class="text-center">人気ページ</h2>
+                    <ul>
+                        <li><a href="#">人気ページ1</a></li>
+                        <li><a href="#">人気ページ2</a></li>
+                        <li><a href="#">人気ページ3</a></li>
+                        <li><a href="#">人気ページ4</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer>
         <div class="container">
-            &copy; 2024 - pokenae_WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-3 btn">リンク1</div>
+                <div class="col-md-3 btn">リンク2</div>
+                <div class="col-md-3 btn">リンク3</div>
+                <div class="col-md-3 btn">リンク4</div>
+            </div>
+            <div class="mycopyright">© 2024 - pokenae_WebApp - <a asp-area="" asp-page="/Privacy" class="text-white">Privacy</a></div>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            $('.menu-item').click(function(e) {
+                e.preventDefault();
+                var $submenu = $(this).next('.submenu');
+                $('.submenu').not($submenu).slideUp();
+                $submenu.slideToggle();
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

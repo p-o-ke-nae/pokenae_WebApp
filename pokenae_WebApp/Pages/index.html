@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>ポケなえ</title>
+        <link rel="stylesheet" href="css/style_home.css?<?php include(TEMPLATEPATH . 'others/style_js_changedate.php'); ?>">
+        <style media="screen">
+            
+        </style>
+
+        <!--各端末のアイコン-->
+        <link rel="shortcut icon" href="pokenaeLogo.png" type="image/x-icon">
+        <link rel="apple-touch-icon" href="pokenaeLogo.png" sizes="180x180">
+        <link rel="icon" type="image/png" href="pokenaeLogo.png" sizes="192x192">
+
+        <!--CSS,jQueryのスライドショー-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css">
+    </head>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWBRHQCHQX"></script>
+    
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZWBRHQCHQX');
+
+    </script>
+
+    <!--別html読み込み-->
+    <!-- jQuery.jsの読み込み -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>    
+    <script>
+        //共通パーツ読み込み
+        $(function() {
+            $("#header").load("others/headerpokenae.html");
+            $("#footer").load("others/footerpokenae.html");
+            $("#telop1").load("telop/teloppokenae.html");
+            $("#telop2").load("telop/teloppokenae.html");
+            $("#telop3").load("telop/teloppokenae.html");
+        });
+    </script>
+    
+    <script>
+        /*テロップニュースのやつ*/
+        //↓'と'の間にポケなえニュースシートのセルI1のウェブアプリのURLをコピペする
+        var api_url = 'https://script.google.com/macros/s/AKfycby7xNBn0fxV4VFGHcoQFBiaoHr7sEEjw37pcvkwICeZMmF_GIunPw_1CXGvW5oUjrpsIA/exec'; //生成したAPIのURLを指定
+        
+        var RowCount = 1;
+        let strlength = 0;
+        fetch(api_url)
+            .then(function (fetch_data) {
+            return fetch_data.json();
+            })
+            .then(function (json) {
+            
+            for (var i in json) {
+            // jsonの要素数だけ回す
+                var base_element = document.getElementsByClassName('pokenaenews js-based'); //元となるHTMLの要素を指定
+                var clone_element = base_element[0].cloneNode(true); //元となるHTMLの要素を複製
+                clone_element.classList.remove('js-based'); //複製した要素からクラス削除
+            
+                var base_element2 = document.getElementsByClassName('pokenaenews2 js-based'); //元となるHTMLの要素を指定
+                var clone_element2 = base_element2[0].cloneNode(true); //元となるHTMLの要素を複製
+                clone_element2.classList.remove('js-based'); //複製した要素からクラス削除
+                
+                var base_element3 = document.getElementsByClassName('pokenaenews3 js-based'); //元となるHTMLの要素を指定
+                var clone_element3 = base_element3[0].cloneNode(true); //元となるHTMLの要素を複製
+                clone_element3.classList.remove('js-based'); //複製した要素からクラス削除
+            
+
+
+                if(json[i].text == "")
+                {
+                    //最初と最後の間の空白を作るためのダミー
+                    clone_element.querySelector('a').setAttribute( 'href',  "/"); //src属性に取得した画像を設定
+                    base_element[0].parentNode.appendChild(clone_element); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+                    clone_element2.querySelector('a').setAttribute( 'href',  "/"); //src属性に取得した画像を設定
+                    base_element2[0].parentNode.appendChild(clone_element2); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+                    clone_element3.querySelector('a').setAttribute( 'href',  "/"); //src属性に取得した画像を設定
+                    base_element3[0].parentNode.appendChild(clone_element3); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+                    //アニメーションの長さを調整
+                    var base_element_ul = document.getElementsByClassName('news_ticker2');
+                    var slideuls = base_element_ul[0].querySelectorAll('ul');
+                    for(let uli in slideuls)
+                    {
+                        if(slideuls.hasOwnProperty(uli))
+                        {
+                            slideuls[uli].style.animation = "hscroll2 " + strlength / 5 + "s linear infinite";
+                        }
+                    }
+
+                    //コンテンツが空白の時点で読込を打ち切る
+                    break;
+                }
+
+                var myLink = json[i].link;
+                if(myLink == "")
+                {
+                    myLink = "/";
+                }
+                else
+                {
+                    //リンクが存在する場合，リンク化する
+                    clone_element.querySelector('a').setAttribute( 'href',  myLink); //src属性に取得した画像を設定
+                    clone_element.querySelector('a').setAttribute( 'target',  "_blank"); //src属性に取得した画像を設定
+                
+                    clone_element2.querySelector('a').setAttribute( 'href',  myLink); //src属性に取得した画像を設定
+                    clone_element2.querySelector('a').setAttribute( 'target',  "_blank"); //src属性に取得した画像を設定
+                
+                    clone_element3.querySelector('a').setAttribute( 'href',  myLink); //src属性に取得した画像を設定
+                    clone_element3.querySelector('a').setAttribute( 'target',  "_blank"); //src属性に取得した画像を設定
+                
+                }
+
+                //重要度の確認
+                if(json[i].tag == "2")
+                {
+                    clone_element.querySelector('a').setAttribute( 'style',  "font-weight: bold;"); //src属性に取得した画像を設定
+                    clone_element2.querySelector('a').setAttribute( 'style',  "font-weight: bold;"); //src属性に取得した画像を設定
+                    clone_element3.querySelector('a').setAttribute( 'style',  "font-weight: bold;"); //src属性に取得した画像を設定
+                }
+                else if(json[i].tag == "0")
+                {
+                    clone_element.querySelector('a').setAttribute( 'style',  "color: rgba(0,0,0,0);"); //src属性に取得した画像を設定
+                    clone_element2.querySelector('a').setAttribute( 'style',  "color: rgba(0,0,0,0);"); //src属性に取得した画像を設定
+                    clone_element3.querySelector('a').setAttribute( 'style',  "color: rgba(0,0,0,0);"); //src属性に取得した画像を設定
+                }
+                else if(json[i].tag == "999")
+                {
+                    clone_element.querySelector('a').setAttribute( 'style',  "color: red;font-weight: bold;background-color:yellow;"); //src属性に取得した画像を設定
+                    clone_element2.querySelector('a').setAttribute( 'style',  "color: red;font-weight: bold;background-color:yellow;"); //src属性に取得した画像を設定
+                    clone_element3.querySelector('a').setAttribute( 'style',  "color: red;font-weight: bold;background-color:yellow;"); //src属性に取得した画像を設定
+                }
+
+                var newstext = json[i].text;
+                strlength = strlength + newstext.length;
+                clone_element.querySelector('a').textContent = newstext;
+                base_element[0].parentNode.appendChild(clone_element); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+                clone_element2.querySelector('a').textContent = newstext;
+                base_element2[0].parentNode.appendChild(clone_element2); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+                clone_element3.querySelector('a').textContent = newstext;
+                base_element3[0].parentNode.appendChild(clone_element3); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+                RowCount = RowCount + 1;
+            }
+            
+        })
+        
+    </script>
+
+    <script>
+        //ポケなえのトップページ画像
+        var api_url = 'https://script.google.com/macros/s/AKfycbwnmwz1qk2yKOhhJn1BWyLmGnMlg2fHlZfVkj190zERM6IJB7elpxGVmRUhzhn-qaJ6aQ/exec';
+        
+        fetch(api_url)
+            .then(function (fetch_data) {
+            return fetch_data.json();
+            })
+            .then(function (json) {
+            
+            for (var i in json) {
+            // jsonの要素数だけ回す
+                var base_elementtopimg = document.getElementsByClassName('pokenaetopimage js-based'); //元となるHTMLの要素を指定
+                var clone_element = base_elementtopimg[0].cloneNode(true); //元となるHTMLの要素を複製
+                clone_element.classList.remove('js-based'); //複製した要素からクラス削除
+            
+                if(json[i].imagelink == "")
+                {
+                    
+                    //コンテンツが空白の時点で読込を打ち切る
+                    base_elementtopimg[0].remove();
+                    $(function () {
+                        $('.slider').slick({
+                            autoplay: true,//自動スクロール
+                            dots: true,//ドット表示
+                            
+                            autoplaySpeed:3000 ,//スライドする時間
+                            variableWidth: true,//CSSで横幅を指定できるようになる，この例では中央固定にしたいのでtrue
+                            centerMode: true,//両端を見切れ状態(左右チラ見せ)にする
+                            centerPadding:50,//チラ見せ幅
+                            focusOnSelect: true,
+
+                            pauseOnFocus:false,//フォーカスで一時停止
+                            pauseOnHover:true,//マウスホバーで一時停止
+                            pauseOnDotsHover:true,//ドットにマウスホバーで一時停止
+
+                            //オプション参考 https://junpei-sugiyama.com/slick-option/
+                            
+                            responsive: [
+                        {
+                            breakpoint: 1000, //ブレイクポイントを指定
+                            settings: {
+                            variableWidth: false,
+                            centerMode: false,
+                            },
+                        },
+                        ],
+                        });
+                    });
+
+                    break;
+                }
+                else
+                {
+                    clone_element.querySelector('img').setAttribute( 'src',  json[i].imagelink); //src属性に取得した画像を設定
+                
+                }
+
+                var myLink = json[i].link;
+                if(myLink == "")
+                {
+                    myLink = "/";
+                }
+                else
+                {
+                    //リンクが存在する場合，リンク化する
+                    clone_element.querySelector('a').setAttribute( 'href',  myLink); //src属性に取得した画像を設定
+                    clone_element.querySelector('a').setAttribute( 'target',  "_blank"); //src属性に取得した画像を設定
+                
+                }
+
+                var alt = json[i].alt
+                if(alt != "")
+                {
+                    clone_element.querySelector('img').setAttribute( 'alt',  alt); //src属性に取得した画像を設定
+                
+                }
+
+                base_elementtopimg[0].parentNode.appendChild(clone_element); //元となるHTMLの要素の後ろに複製した要素を追加
+                
+            }
+            
+        })
+        
+        $(function(){
+            pokenae_infomake(false);
+        });
+        
+        
+    </script>
+
+    <script src="others/pokenaebase_js.js?<?php include(TEMPLATEPATH . 'others/style_js_changedate.php'); ?>"></script>
+    <script>
+        $(function(){
+            pokenae_indexmake();
+        });
+    </script>
+
+<body>
+    <div id="_overflow">
+        <header>
+    
+    
+            <!--<img src="ozaプロフィール画像.png" alt="Dinosaur">-->
+            <div class="inner">
+                <h1><a href="index.html"><div class="imagemyLogo" alt="ポケなえ"></div></a></h1>
+                <nav class="gnav">
+                    <a href="tool/tool_index.html"><div class="btnh">ツール開発室</div></a>
+                    <a href="event/event_index.html"><div class="btnh">イベント</div></a>
+                    <a href="info/info_index.html"><div class="btnh">ポケモン情報</div></a>
+                    <a href="showcase/showcase_index.html"><div class="btnh">ショーケース</div></a>
+                </nav>
+            </div>
+        
+            <!--ハンバーガーメニュー-->
+            <div class="hamburger-menu">
+                <input type="checkbox" id="menu-btn-check">
+                <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        
+                <!--ここからメニュー-->
+                <div class="menu-content">
+                    <ul>
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="tool/tool_index.html">ツール開発室</a></li>
+                        <li><a href="event/event_index.html">イベント</a></li>
+                        <li><a href="info/info_index.html">ポケモン情報</a></li>
+                        <li><a href="showcase/showcase_index.html">ショーケース</a></li>
+                        <li><a href="blog/blog_index.html">ブログ</a></li>
+                        <li><a href="others/お問い合わせ.html" target="_blank">お問い合わせ</a></li>
+                    </ul>
+        
+                </div>
+        
+                <!--背景を暗くするダミー-->
+                <div class="hamburger-demo-cover"></div>
+        
+                <!--ここまでメニュー-->
+            </div>
+        
+        </header>
+
+
+        <!--========================================================================-->
+
+
+        <div style="margin-left:10px;margin-right:10px;">
+            <!--スライドショー 参考https://rilaks.jp/blog/carousel/-->
+            <div class="pokenaeTopSlide"> 
+                <ul class="slider">
+                    <li class="pokenaetopimage js-based">
+                        <a href="/" target="_blank"><img class="pokenaeTopSlide_Imgsize" src="/" alt=""></a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <!--NEWS-->
+            <div class="news_ticker2">
+                <ul>
+                    <li class="pokenaenews js-based">
+                        <a class="news_link"></a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="pokenaenews2 js-based">
+                        <a class="news_link"></a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="pokenaenews3 js-based">
+                        <a class="news_link"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+        <!--メイン-->
+        <div id="pokenae_contents">
+            <div id="pokenae_contentsWrap">
+                <div class="pokenae_main_2col">
+                    
+                    <!--PICKUP-->
+                    <!--===============================================================================-->
+                    <ul class="pokenae_itemsindex" id="indexPickUpTitle">
+                        <h3 class="pokenae_subtitleindex">
+                            <span>PICKUP</span>
+                        </h3>
+                        <li class="pokenae_items_block js-based" id="pokenae_indexPICKUP_items">
+                            <a href="/" class="pokenae_items_link">
+                                <div class="pokenae_items_img" >
+                                    <img src="/" alt="">
+                                </div>
+                                <p>
+                                    <span class="pokenae_items_wrap">
+                                        <span class="pokenae_items_tag"></span>
+                                        <span class="pokenae_items_title"></span>
+                                        <span class="pokenae_items_summary"></span> 
+                                        <span class="pokenae_items_date"></span> 
+                                    </span>
+                                </p>
+                            </a>
+                        </li>
+                        
+                        
+                    </ul>
+
+                    <!--INFO-->
+                    <!--===============================================================================-->
+                    <ul class="pokenae_itemsindex">
+                        <h3 class="pokenae_subtitleindex">
+                            <span>INFO</span>
+                        </h3>
+                        
+                        <div class="pokenae_info_scroll">
+                            <li class="info2 js-based" id="pokenae_info2_items"></li>
+                            <div class="info3 js-based" id="pokenae_info3_items"><a></a><span></span></div>
+                            
+                            
+                        </div>
+
+                        <div style="font-size:17px;margin-left:20px;padding-bottom:10px;">
+                            <a href="others/infopokenae.html">さらに表示</a>
+                        </div>
+
+                    </ul>
+                    
+                    
+                    <!--BLOG-->
+                    <!--===============================================================================-->
+                    <ul class="pokenae_itemsindex" id="BLOGTitle">
+                        <h3 class="pokenae_subtitleindex">
+                            <span>BLOG</span>
+                        </h3>
+                        <div>
+                            <li class="pokenae_items_block js-based" id="pokenae_BLOG_items">
+                                <a href="/" class="pokenae_items_link">
+                                    <div class="pokenae_items_img" >
+                                        <img src="/" alt="">
+                                    </div>
+                                    <p>
+                                        <span class="pokenae_items_wrap">
+                                            <span class="pokenae_items_tag"></span>
+                                            <span class="pokenae_items_title"></span>
+                                            <span class="pokenae_items_summary"></span> 
+                                            <span class="pokenae_items_date"></span> 
+                                        </span>
+                                    </p>
+                                </a>
+                            </li>
+                        </div>
+
+                        <div style="font-size:17px;margin-left:20px;padding-bottom:10px;">
+                            <a href="blog/blog_index.html">さらに表示</a>
+                        </div>
+                        
+                    </ul>
+
+                    <!--SNS-->
+                    <!--===============================================================================-->
+                    <ul class="pokenae_itemsindex">
+                        <h3 class="pokenae_subtitleindex">
+                            <span>SNS</span>
+                        </h3>
+                        <li class="pokenae_items_block" id="pokenae_SNS_items">
+                            <a href="https://twitter.com/p_o_ke_nae" class="pokenae_items_link">
+                                <div class="pokenae_items_img" >
+                                    <img src="https://pbs.twimg.com/profile_images/1683503038135250944/AehRWEi3_400x400.jpg" alt="">
+                                </div>
+                                <p>
+                                    <span class="pokenae_items_wrap">
+                                        <span class="pokenae_items_tag"></span>
+                                        <span class="pokenae_items_title">Twitter</span>
+                                        <span class="pokenae_items_summary"></span> 
+                                        <span class="pokenae_items_date">p_o_ke_nae</span> 
+                                    </span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="pokenae_items_block">
+                            <a href="https://discord.gg/pE4D4BtDyM" class="pokenae_items_link">
+                                <div class="pokenae_items_img" >
+                                    <img src="https://play-lh.googleusercontent.com/McVkTazCaveLwqoDuX_E7ayTgdK4DPbrKCGcPSIZT4b783j6HJvJYu0uxQAuzCw7BCs" alt="">
+                                </div>
+                                <p>
+                                    <span class="pokenae_items_wrap">
+                                        <span class="pokenae_items_tag"></span>
+                                        <span class="pokenae_items_title">Discord</span>
+                                        <span class="pokenae_items_summary">ツールの先行公開やデモ</span> 
+                                        <span class="pokenae_items_date">無期限</span> 
+                                    </span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="pokenae_items_block">
+                            <a href="https://www.youtube.com/@p_o_ke_nae" class="pokenae_items_link">
+                                <div class="pokenae_items_img" >
+                                    <img src="data:image/png;base64,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" alt="">
+                                </div>
+                                <p>
+                                    <span class="pokenae_items_wrap">
+                                        <span class="pokenae_items_tag"></span>
+                                        <span class="pokenae_items_title">YouTube</span>
+                                        <span class="pokenae_items_summary">ツールのデモプレイなど</span> 
+                                        <span class="pokenae_items_date">p_o_ke_nae</span> 
+                                    </span>
+                                </p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <!--フッター-->
+        <!--======================================================================================================-->
+        <footer>
+    
+    
+            <div class="btn">
+                <a href="index.html" >ホーム</a>
+            </div>
+            <div class="btn">
+                <a href="tool/tool_index.html" >ツール開発室</a>
+            </div>
+            <div class="btn">
+                <a href="event/event_index.html" >イベント</a>
+            </div>
+            <div class="btn">
+                <a href="info/info_index.html" >ポケモン情報</a>
+            </div>
+            <div class="btn">
+                <a href="../showcase/showcase_index.html" >ショーケース</a>
+            </div>
+            <div class="btn">
+                <a href="blog/blog_index.html" >ブログ</a>
+            </div>
+            <div class="btn">
+                <a href="others/お問い合わせ.html" target="_blank">お問い合わせ</a>
+            </div>
+            <div class="btn">
+                <a href="others/ご利用について.html" target="_blank">ご利用について</a>
+            </div>
+            <div class="btn">
+                <a href="others/プライバシーポリシー.html" target="_blank">プライバシーポリシー</a>
+            </div>
+            
+        
+            
+            <image class="imagemyPro"></image>
+            <div class="mycopyright">Copyright (C) 2023 ポケなえ</div>
+        </footer>
+
+        <!--======================================================================================================-->
+        <!--Javascript-->
+        
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        
+
+    </div>
+</body>
+</html>
