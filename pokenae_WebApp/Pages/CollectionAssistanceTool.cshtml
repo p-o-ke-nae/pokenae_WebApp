@@ -1,5 +1,4 @@
-﻿
-@page
+﻿@page
 @model pokenae_WebApp.Pages.CollectionAssistanceToolModel
 
 <h3>Collection Assistance Tool</h3>
@@ -15,7 +14,7 @@ else
         <table id="dataTable-template" style="border-collapse: collapse; width: 100%; margin-bottom: 20px; display: none;">
             <thead>
                 <tr>
-                    <th style="width: 100px; border: 1px solid black;">Image</th> <!-- Add a header for the image column -->
+                    <th style="width: 30px; height: 30px; border: 1px solid black;"></th> <!-- Add a header for the image column -->
                     @foreach (var column in Model.Columns.Where(c => c.IsVisible))
                     {
                         <th style="width:@column.Width; border: 1px solid black;" data-width="@column.Width">@column.Header</th>
@@ -30,17 +29,26 @@ else
     <!-- モーダルのHTML -->
     <div id="imageModal" class="modal" style="display: none;">
         <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="modalInfo"></div>
-        <button class="modal-nav" id="prevRecord" onclick="showPrevRecord()">Previous</button>
-        <button class="modal-nav" id="nextRecord" onclick="showNextRecord()">Next</button>
+        <div id="modalImageContainer">
+            <div id="modalImageFrame">
+                <img class="modal-content" id="modalImage">
+            </div>
+        </div>
+        <div id="modalInfoContainer">
+            <div id="modalInfoTitle"><h4>詳細</h4></div>
+            <div id="modalInfoWrapper">
+                <div id="modalInfo"></div>
+            </div>
+        </div>
+        <button class="modal-nav" id="prevRecord" onclick="showPrevRecord()">&lt;</button>
+        <button class="modal-nav" id="nextRecord" onclick="showNextRecord()">&gt;</button>
     </div>
 }
 
 @section Scripts {
     <script>
-        const columnIndices = @Html.Raw(Json.Serialize(Model.Columns.Where(c => c.IsVisible).Select(c => Model.Columns.IndexOf(c) + 3).ToList())); // +3 to skip the background color, item name, and image columns
-        const hiddenColumnIndices = @Html.Raw(Json.Serialize(Model.Columns.Where(c => !c.IsVisible).Select(c => Model.Columns.IndexOf(c) + 3).ToList())); // +3 to skip the background color, item name, and image columns
+        const columnIndices = @Html.Raw(Json.Serialize(Model.Columns.Where(c => c.IsVisible).Select(c => Model.Columns.IndexOf(c) + 4).ToList())); // +4 to skip the ID, background color, item name, and image columns
+        const hiddenColumnIndices = @Html.Raw(Json.Serialize(Model.Columns.Where(c => !c.IsVisible).Select(c => Model.Columns.IndexOf(c) + 4).ToList())); // +4 to skip the ID, background color, item name, and image columns
         const columnHeaders = @Html.Raw(Json.Serialize(Model.Columns.Select(c => c.Header).ToList()));
         const columnWidths = @Html.Raw(Json.Serialize(Model.Columns.Where(c => c.IsVisible).Select(c => c.Width).ToList()));
         const spreadsheetId = "15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c";
@@ -95,17 +103,18 @@ else
                 const tbody = table.querySelector("tbody");
                 groupedData[itemName].forEach((row, rowIndex) => {
                     const tr = document.createElement("tr");
-                    tr.style.backgroundColor = row[0] ? row[0] : '#f0f0f0'; // Set background color from the first column or default to light gray
+                    tr.style.backgroundColor = row[1] ? row[1] : '#f0f0f0'; // Set background color from the second column or default to light gray
                     tr.style.height = "30px";
                     tr.style.border = "1px solid black";
 
                     const imgTd = document.createElement("td");
                     imgTd.style.border = "1px solid black";
+                    imgTd.width = "30"; // 幅を高さと同じに設定
                     const img = document.createElement("img");
-                    img.src = row[2];
+                    img.src = row[3];
                     img.alt = "Image";
-                    img.style.maxWidth = "30px";
-                    img.style.maxHeight = "30px";
+                    img.width = "30"; // 幅を高さと同じに設定
+                    img.height = "30";
                     img.onerror = function() {
                         imgTd.removeChild(img); // 画像の読み込みに失敗した場合、画像要素を削除
                     };
@@ -115,7 +124,7 @@ else
                     columnIndices.forEach((columnIndex, index) => {
                         const td = document.createElement("td");
                         td.style.border = "1px solid black";
-                        td.style.width = columnWidths[index]; // 列の幅を設定
+                        td.width = columnWidths[index]; // 列の幅を設定
                         td.innerText = row[columnIndex];
                         tr.appendChild(td);
                     });
@@ -124,7 +133,7 @@ else
                     tr.addEventListener("click", function() {
                         currentRecordIndex = rowIndex;
                         currentTableName = itemName;
-                        showModal(row[2], row);
+                        showModal(row[3], row);
                     });
 
                     tbody.appendChild(tr);
@@ -144,12 +153,23 @@ else
             modalImage.src = imageSrc;
 
             // 全ての情報を表示（画像列を除く）
-            modalInfo.innerHTML = "<h4>Information</h4>";
+            modalInfo.innerHTML = "";
             columnHeaders.forEach((header, index) => {
-                const indexreal = index + 3;
-                const info = document.createElement("p");
-                info.innerText = `${header}: ${rowData[indexreal]}`;
-                modalInfo.appendChild(info);
+                const indexreal = index + 4;
+                const infoItem = document.createElement("div");
+                infoItem.className = "modal-info-item";
+
+                const infoHeader = document.createElement("div");
+                infoHeader.className = "modal-info-item-header";
+                infoHeader.innerText = header;
+
+                const infoDetail = document.createElement("div");
+                infoDetail.className = "modal-info-item-detail";
+                infoDetail.innerText = rowData[indexreal];
+
+                infoItem.appendChild(infoHeader);
+                infoItem.appendChild(infoDetail);
+                modalInfo.appendChild(infoItem);
             });
         }
 
@@ -162,7 +182,7 @@ else
             if (currentRecordIndex > 0) {
                 currentRecordIndex--;
                 const rowData = currentGroupedData[currentTableName][currentRecordIndex];
-                showModal(rowData[2], rowData);
+                showModal(rowData[3], rowData);
             }
         }
 
@@ -170,7 +190,7 @@ else
             if (currentRecordIndex < currentGroupedData[currentTableName].length - 1) {
                 currentRecordIndex++;
                 const rowData = currentGroupedData[currentTableName][currentRecordIndex];
-                showModal(rowData[2], rowData);
+                showModal(rowData[3], rowData);
             }
         }
 
@@ -179,7 +199,7 @@ else
             if (!isDataDifferent(newData, initialData)) return; // データに差異がない場合は更新しない
 
             const groupedData = newData.reduce((acc, row) => {
-                const itemName = row[1];
+                const itemName = row[2];
                 if (!acc[itemName]) {
                     acc[itemName] = [];
                 }
@@ -195,7 +215,7 @@ else
             const modal = document.getElementById("imageModal");
             if (modal.style.display === "block" && currentTableName !== null && currentRecordIndex !== null) {
                 const rowData = currentGroupedData[currentTableName][currentRecordIndex];
-                showModal(rowData[2], rowData);
+                showModal(rowData[3], rowData);
             }
         }
 
@@ -203,7 +223,7 @@ else
             tableTemplate = document.getElementById("dataTable-template"); // テーブルテンプレートを保存
             initialData = await fetchData();
             const groupedData = initialData.reduce((acc, row) => {
-                const itemName = row[1];
+                const itemName = row[2];
                 if (!acc[itemName]) {
                     acc[itemName] = [];
                 }
@@ -219,84 +239,6 @@ else
         initializeTable(); // テーブルを初期化
     </script>
 
-    <style>
-        /* モーダルのスタイル */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.9);
-        }
-
-        /* モーダルのコンテンツ */
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 50%; /* 画像をもう少し小さく表示 */
-            max-width: 500px;
-        }
-
-        /* 閉じるボタン */
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* モーダル内の追加情報 */
-        #modalInfo {
-            color: #f1f1f1;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* 行にマウスを乗せたときのスタイル */
-        tbody tr:hover {
-            background-color: #e0e0e0; /* 少しグレーにする */
-            cursor: pointer;
-        }
-
-        /* ヘッダ行にマウスを乗せたときのスタイルを無効にする */
-        thead tr:hover {
-            background-color: transparent;
-            cursor: default;
-        }
-
-        /* モーダルのナビゲーションボタン */
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #f1f1f1;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        #prevRecord {
-            left: 10px;
-        }
-
-        #nextRecord {
-            right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/CollectionAssistanceTool.css">
 }
+
