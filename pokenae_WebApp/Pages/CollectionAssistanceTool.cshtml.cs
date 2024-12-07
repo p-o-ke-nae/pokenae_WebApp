@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,9 @@ namespace pokenae_WebApp.Pages
     public class CollectionAssistanceToolModel : PageModel
     {
         private readonly GoogleSheetsService _googleSheetsService;
+
+        [BindProperty(SupportsGet = true)]
+        public string SpreadsheetId { get; set; }
 
         public CollectionAssistanceToolModel(GoogleSheetsService googleSheetsService)
         {
@@ -25,8 +29,14 @@ namespace pokenae_WebApp.Pages
 
         public async Task OnGetAsync()
         {
-            var spreadsheetId = "15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c";
-            var colData = await _googleSheetsService.GetSheetDataAsync(spreadsheetId, "Col");
+            if (string.IsNullOrEmpty(SpreadsheetId))
+            {
+                // スプレッドシートのリンクが指定されていない場合の処理
+                Columns = new List<ColumnInfo>();
+                return;
+            }
+
+            var colData = await _googleSheetsService.GetSheetDataAsync(SpreadsheetId, "Column");
             Columns = new List<ColumnInfo>();
 
             foreach (var row in colData)
@@ -42,7 +52,6 @@ namespace pokenae_WebApp.Pages
                     });
                 }
             }
-
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿@page
+﻿@page "/CollectionAssistanceTool/{spreadsheetId}"
 @model pokenae_WebApp.Pages.CollectionAssistanceToolModel
+@{
+    var spreadsheetId = Model.SpreadsheetId;
+}
 
 <h3>Collection Assistance Tool</h3>
 
@@ -51,7 +54,7 @@ else
         const hiddenColumnIndices = @Html.Raw(Json.Serialize(Model.Columns.Where(c => !c.IsVisible).Select(c => Model.Columns.IndexOf(c) + 4).ToList())); // +4 to skip the ID, background color, item name, and image columns
         const columnHeaders = @Html.Raw(Json.Serialize(Model.Columns.Select(c => c.Header).ToList()));
         const columnWidths = @Html.Raw(Json.Serialize(Model.Columns.Where(c => c.IsVisible).Select(c => c.Width).ToList()));
-        const spreadsheetId = "15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c";
+        const spreadsheetId = "@spreadsheetId";
         const baseUrl = "https://script.google.com/macros/s/AKfycby0eB-AnstPy3b3m_ghF1rcZnNpUWqmuM4ZXWPY0-9n0iCqdoStfR0GBfgAIu3lMRP2/exec";
 
         let initialData = null;
