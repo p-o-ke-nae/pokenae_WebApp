@@ -7,14 +7,14 @@ namespace pokenae_WebApp.Pages
 {
     public class CollectionAssistanceToolModel : PageModel
     {
-        private readonly GoogleSheetsService _googleSheetsService;
+        private readonly HttpClient _httpClient;
 
         [BindProperty(SupportsGet = true)]
         public string SpreadsheetId { get; set; }
 
-        public CollectionAssistanceToolModel(GoogleSheetsService googleSheetsService)
+        public CollectionAssistanceToolModel(HttpClient httpClient)
         {
-            _googleSheetsService = googleSheetsService;
+            _httpClient = httpClient;
         }
 
         public IList<ColumnInfo> Columns { get; private set; }
@@ -35,22 +35,30 @@ namespace pokenae_WebApp.Pages
                 Columns = new List<ColumnInfo>();
                 return;
             }
-
-            var colData = await _googleSheetsService.GetSheetDataAsync(SpreadsheetId, "Column");
-            Columns = new List<ColumnInfo>();
-
-            foreach (var row in colData)
+            var staaa = $"api/collectionassistancetool/{SpreadsheetId}/Column";
+            var response = await _httpClient.GetAsync($"https://localhost:7255/api/collectionassistancetool/{SpreadsheetId}/Column");
+            if (response.IsSuccessStatusCode)
             {
-                if (row.Count >= 4)
+                var colData = await response.Content.ReadFromJsonAsync<IList<IList<object>>>();
+                Columns = new List<ColumnInfo>();
+
+                foreach (var row in colData)
                 {
-                    Columns.Add(new ColumnInfo
+                    if (row.Count >= 4)
                     {
-                        Id = row[0]?.ToString(),
-                        Header = row[1]?.ToString(),
-                        Width = row[2]?.ToString(),
-                        IsVisible = bool.TryParse(row[3]?.ToString(), out var isVisible) && isVisible
-                    });
+                        Columns.Add(new ColumnInfo
+                        {
+                            Id = row[0]?.ToString(),
+                            Header = row[1]?.ToString(),
+                            Width = row[2]?.ToString(),
+                            IsVisible = bool.TryParse(row[3]?.ToString(), out var isVisible) && isVisible
+                        });
+                    }
                 }
+            }
+            else
+            {
+                Columns = new List<ColumnInfo>();
             }
         }
     }

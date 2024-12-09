@@ -17,7 +17,7 @@ else
         <table id="dataTable-template" style="border-collapse: collapse; width: 100%; margin-bottom: 20px; display: none;">
             <thead>
                 <tr>
-                    <th style="width: 30px; height: 30px; border: 1px solid black;"></th> <!-- Add a header for the image column -->
+                    <th style="width: 30px; height: 30px;"></th> <!-- Add a header for the image column -->
                     @foreach (var column in Model.Columns.Where(c => c.IsVisible))
                     {
                         <th style="width:@column.Width; border: 1px solid black;" data-width="@column.Width">@column.Header</th>
@@ -108,7 +108,6 @@ else
                     const tr = document.createElement("tr");
                     tr.style.backgroundColor = row[1] ? row[1] : '#f0f0f0'; // Set background color from the second column or default to light gray
                     tr.style.height = "30px";
-                    tr.style.border = "1px solid black";
 
                     const imgTd = document.createElement("td");
                     imgTd.style.border = "1px solid black";
@@ -117,7 +116,6 @@ else
                     img.src = row[3];
                     img.alt = "Image";
                     img.width = "30"; // 幅を高さと同じに設定
-                    img.height = "30";
                     img.onerror = function() {
                         imgTd.removeChild(img); // 画像の読み込みに失敗した場合、画像要素を削除
                     };

@@ -37,3 +37,25 @@ GET {{pokenae_WebApp_HostAddress}}/api/values
 GET https://pokenae-hrbndabnb6btgtbq.japaneast-01.azurewebsites.net/api/values
 
 ###
+
+
+POST {{pokenae_WebApp_HostAddress}}/api/collectionassistancetool
+Content-Type: application/json
+
+{
+  
+    "spreadsheetId": "15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c",
+    "id": "KARINAtest",
+    "name": "オトスパス",
+    "memo": "memomo",
+    "trainer": "スグリ",
+    "aab": "test"
+}
+
+###
+
+@spreadsheetId=15vjM0HD16LGA7f9hLZC3DZIZaYnbOD41rPKI5gezh0c
+@sheetName=Column
+GET {{pokenae_WebApp_HostAddress}}/api/collectionassistancetool/{{spreadsheetId}}/{{sheetName}}
+
+###
