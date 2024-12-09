@@ -36,7 +36,7 @@ namespace pokenae_WebApp.Pages
                 return;
             }
             var staaa = $"api/collectionassistancetool/{SpreadsheetId}/Column";
-            var response = await _httpClient.GetAsync($"https://localhost:7255/api/collectionassistancetool/{SpreadsheetId}/Column");
+            var response = await _httpClient.GetAsync($"https://pokenae-hrbndabnb6btgtbq.japaneast-01.azurewebsites.net/api/collectionassistancetool/{SpreadsheetId}/Column");
             if (response.IsSuccessStatusCode)
             {
                 var colData = await response.Content.ReadFromJsonAsync<IList<IList<object>>>();
