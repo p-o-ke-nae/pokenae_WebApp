@@ -13,12 +13,14 @@ namespace pokenae_WebApp.Services.Impl
         private readonly HttpClient _httpClient;
         private readonly string _addRowUrl;
         private readonly string _getSheetDataUrl;
+        private readonly string _clearAndArchiveUrl;
 
         public GoogleAppsScriptService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _addRowUrl = configuration["GoogleAppsScript:AddRowUrl"];
             _getSheetDataUrl = configuration["GoogleAppsScript:GetSheetDataUrl"];
+            _clearAndArchiveUrl = configuration["GoogleAppsScript:ClearAndArchiveUrl"];
         }
 
         public async Task<bool> AddRowAsync(Dictionary<string, string> data)
@@ -34,6 +36,17 @@ namespace pokenae_WebApp.Services.Impl
             var data = JsonConvert.DeserializeObject<IList<IList<object>>>(response);
             // 1行目をスキップ
             return data.Skip(1).ToList();
+        }
+
+        public async Task<bool> ClearAndArchiveAsync(string spreadsheetId)
+        {
+            var data = new Dictionary<string, string>
+            {
+                { "spreadsheetId", spreadsheetId }
+            };
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(_clearAndArchiveUrl, content);
+            return response.IsSuccessStatusCode;
         }
     }
 }

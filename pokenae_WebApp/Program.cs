@@ -6,6 +6,7 @@ using pokenae_WebApp.Services;
 using pokenae_WebApp.Options;
 using System.Configuration;
 using pokenae_WebApp.Services.Impl;
+using pokenae_WebApp.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,16 @@ builder.Services.AddDbContext<pokenae_WebAppContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<IGoogleAppsScriptService, GoogleAppsScriptService>();
 builder.Services.Configure<GoogleAppsScriptOptions>(builder.Configuration.GetSection("GoogleAppsScript"));
+
+// HttpClientのベースアドレス設定
+builder.Services.AddHttpClient("",client =>
+{
+    var baseAddress = builder.Configuration["BaseAddress"];
+    if (!string.IsNullOrEmpty(baseAddress))
+    {
+        client.BaseAddress = new Uri(baseAddress);
+    }
+});
 
 var app = builder.Build();
 

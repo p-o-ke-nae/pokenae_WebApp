@@ -35,8 +35,8 @@ namespace pokenae_WebApp.Pages
                 Columns = new List<ColumnInfo>();
                 return;
             }
-            var staaa = $"api/collectionassistancetool/{SpreadsheetId}/Column";
-            var response = await _httpClient.GetAsync($"https://pokenae-hrbndabnb6btgtbq.japaneast-01.azurewebsites.net/api/collectionassistancetool/{SpreadsheetId}/Column");
+
+            var response = await _httpClient.GetAsync($"api/CollectionAssistanceTool/getSheetData/{SpreadsheetId}/Column");
             if (response.IsSuccessStatusCode)
             {
                 var colData = await response.Content.ReadFromJsonAsync<IList<IList<object>>>();
@@ -61,5 +61,6 @@ namespace pokenae_WebApp.Pages
                 Columns = new List<ColumnInfo>();
             }
         }
+
     }
 }

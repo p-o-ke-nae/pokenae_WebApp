@@ -16,8 +16,8 @@ namespace pokenae_WebApp.Controller
             _googleAppsScriptService = googleAppsScriptService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Dictionary<string, string> data)
+        [HttpPost("addRow")]
+        public async Task<IActionResult> AddRow([FromBody] Dictionary<string, string> data)
         {
             var result = await _googleAppsScriptService.AddRowAsync(data);
             if (result)
@@ -27,8 +27,8 @@ namespace pokenae_WebApp.Controller
             return StatusCode(500, new { status = "error" });
         }
 
-        [HttpGet("{spreadsheetId}/{sheetName}")]
-        public async Task<IActionResult> Get(string spreadsheetId, string sheetName)
+        [HttpGet("getSheetData/{spreadsheetId}/{sheetName}")]
+        public async Task<IActionResult> GetSheetData(string spreadsheetId, string sheetName)
         {
             var data = await _googleAppsScriptService.GetSheetDataAsync(spreadsheetId, sheetName);
             if (data != null)
@@ -36,6 +36,23 @@ namespace pokenae_WebApp.Controller
                 return Ok(data);
             }
             return NotFound(new { status = "error", message = "Data not found" });
+        }
+
+        [HttpPost("clearAndArchive")]
+        public async Task<IActionResult> ClearAndArchive([FromBody] Dictionary<string, string> data)
+        {
+            if (!data.ContainsKey("spreadsheetId"))
+            {
+                return BadRequest(new { status = "error", message = "Spreadsheet ID is required" });
+            }
+
+            var spreadsheetId = data["spreadsheetId"];
+            var result = await _googleAppsScriptService.ClearAndArchiveAsync(spreadsheetId);
+            if (result)
+            {
+                return Ok(new { status = "success" });
+            }
+            return StatusCode(500, new { status = "error" });
         }
     }
 }
