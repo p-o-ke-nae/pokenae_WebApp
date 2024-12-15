@@ -17,7 +17,7 @@ builder.Services.AddDbContext<pokenae_WebAppContext>(options =>
 
 // GoogleAppsScriptServiceの登録
 builder.Services.AddControllers();
-builder.Services.AddHttpClient<IGoogleAppsScriptService, GoogleAppsScriptService>();
+builder.Services.AddHttpClient<IGoogleSpreadSheetService, GoogleSpreadSheet_GoogleAppsScriptService>();
 builder.Services.Configure<GoogleAppsScriptOptions>(builder.Configuration.GetSection("GoogleAppsScript"));
 
 // HttpClientのベースアドレス設定

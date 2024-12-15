@@ -1,0 +1,70 @@
+﻿@page
+@using Components
+@using pokenae_WebApp.Extensions
+@model pokenae_WebApp.Pages.TestModel
+@{
+}
+
+<form method="post">
+    
+
+    <div class="col-form-label">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.CustomLabelHeaderFor(m => m.ViewModel.PokemonName)
+
+                @Html.CustomTextBoxFor(m => m.ViewModel.PokemonName)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.CustomLabelHeaderFor(m => m.ViewModel.PokemonNickName)
+
+                @Html.CustomTextBoxFor(m => m.ViewModel.PokemonNickName)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.CustomLabelHeaderFor(m => m.ViewModel.PokemonShowType)
+
+                @Html.CustomRadioButtonFor(m => m.ViewModel.PokemonShowType, Model.ViewModel.PokemonShowTypeList)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.CustomLabelHeaderFor(m => m.ViewModel.PokemonTrainer)
+
+                @Html.CustomTextBoxFor(m => m.ViewModel.PokemonTrainer, rows: 1)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.CustomLabelHeader("捕獲状況")
+
+                @Html.CustomCheckBoxFor(m => m.ViewModel.GetCheck)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.CustomLabelHeaderFor(m => m.ViewModel.PokemonLevel)
+
+                @Html.CustomTextBoxFor(m => m.ViewModel.PokemonLevel)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 offset-1">
+                @Html.CustomButtonPostFor(m => m.ButtonShowName, "名前を表示", Url.Page("Test", "ShowName"))
+            </div>
+            <div class="col-md-5 offset-1">
+                @Html.CustomButtonPostFor(m => m.ButtonLvUp, "レベルを反映", Url.Page("Test", "LvUp"))
+            </div>
+        </div>
+
+    </div>
+</form>

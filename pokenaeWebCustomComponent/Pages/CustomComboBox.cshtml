@@ -1,0 +1,8 @@
+﻿@model pokenae_WebApp.Pages.CustomComboBoxModel
+
+<select id="@Model.Id" name="@Model.Name" class="custom-combobox" bind="@Model.SelectedValue">
+    @foreach (var item in Model.Items)
+    {
+        <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+    }
+</select>

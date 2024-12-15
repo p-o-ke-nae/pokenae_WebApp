@@ -1,0 +1,19 @@
+﻿@model pokenae_WebApp.Pages.CustomSelectDialogModel
+
+<input type="text" id="@Model.Id" name="@Model.Name" class="custom-select-dialog" bind="@Model.SelectedValue" />
+<button type="button" onclick="@Model.OpenDialog">@Model.ButtonText</button>
+
+@if (Model.IsDialogOpen)
+{
+    <div class="dialog">
+        <table>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item</td>
+                    <td><button type="button" onclick="() => Model.SelectItem(item)">Select</button></td>
+                </tr>
+            }
+        </table>
+    </div>
+}

@@ -1,0 +1,9 @@
+﻿@model pokenae_WebApp.Pages.CustomTextBoxModel
+@{
+    string required = Model.IsRequired ? "required" : "";
+    string readOnly = Model.IsReadOnly ? "readonly" : "";
+    string dataValLengthMax = Model.DataValLengthMax >= 0 ? $"data-val-length-max={Model.DataValLengthMax}" : "";
+    string dataValLengthMin = Model.DataValLengthMin >= 0 ? $"data-val-length-min={Model.DataValLengthMin}" : "";
+}
+
+<input type="text" id="@Model.Id" name="@Model.Name" class="custom-textbox" @required @readOnly @dataValLengthMax @dataValLengthMin title="" value="@Model.Text" />

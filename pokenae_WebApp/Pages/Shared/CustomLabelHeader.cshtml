@@ -1,0 +1,23 @@
+﻿@model pokenae_WebApp.Pages.CustomLabelHeaderModel
+@{
+    string borderColor = "var(--main-color)";
+    if(Model.IsRequired)
+    {
+        borderColor = "var(--required-color)";
+    }
+    else if (Model.IsReadOnly)
+    {
+        borderColor = "var(--readonly-color)";
+    }
+}
+
+<div class="custom-header-label-container" style="border-left: 4px solid @borderColor;" >
+    <h3>
+        <label for="" class="custom-header-label">
+            @Model.LabelText @if (Model.IsRequired)
+            {
+                <span style="color: @borderColor;">※</span>
+            }
+        </label>
+    </h3>
+</div>

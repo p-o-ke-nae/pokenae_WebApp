@@ -1,0 +1,5 @@
+﻿@model pokenae_WebApp.Pages.CustomHeaderLabelModel
+
+<div class="header-label" style="border-left: 4px solid @Model.BorderColor;">
+    <label for="@Model.Id" class="custom-header-label">@Model.LabelText @if (Model.IsRequired) { <span style="color: red;">※</span> }</label>
+</div>

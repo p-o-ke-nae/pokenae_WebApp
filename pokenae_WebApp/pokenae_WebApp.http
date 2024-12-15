@@ -69,3 +69,48 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{pokenae_WebApp_HostAddress}}/?handler=Validate
+RequestVerificationToken: CfDJ8J_dHgmdq2lKqqvzICdyAt33lL8XtC8VxUs-pOPDBqedyHoQJnLjbizk8S2HOsms-hyd1PVu0oTZ2v7mNaYRiaOC8pNDyiVhHon4LQJ6DPA-bQliTQdaQsznhAfI7EQHOnITs3S_ix-9m6FlcPKuljY
+Content-Type: application/json
+cookie: AspNetCore.Antiforgery.WgoD07g0vFA=CfDJ8EDc4wgyovZCh_4rw54t5ScAD9Ucbdu0efrky2w2jmw6_o5ssTMBzJ45ODVrY3wWoomBMiU5HJUW-PB6wzqtgsK1Tyv41fLe4arn2LAFAqXVU9cGY89OKcA79bdCJolS8XPUCwJe5wYuphqbeI08sBk; .AspNetCore.Antiforgery.k04h3fY1qAw=CfDJ8EDc4wgyovZCh_4rw54t5ScTMkfzRLpuFmLMU59yqRItw8NFhpHVNF-_v4Sm3iUD9svKJjZqOStJeHXsW7k-NWQqf9A5TrBITSJeg3HONviJsndfmIiBhWynR5kBnKioP57NVKsL0NkYaye2FCpEqwE; .AspNetCore.Antiforgery.zmpXaHF28NA=CfDJ8EDc4wgyovZCh_4rw54t5Se7BWV1q1XNndlWJWQ7WPZocyJLA1gTfHl074YGceDWFMbPoUftkK7zH4gelDTpbmdpXbpjKy184q7bI8g3q8gV6AZPlvnwefDRts_OQDDXS9ib6b7WYmH3fqy5Ej01rn4; _ga=GA1.1.1841685096.1732795702; _ga_ZWBRHQCHQX=GS1.1.1734126325.31.1.1734134944.0.0.0
+
+{
+  "TextBoxField": "test", 
+  "ComboBoxField": "2", 
+  "SelectDialogField": "ccc",
+  "RadioButtonFiels": "Option1",
+  "CheckBoxField": false
+}
+
+###
+
+POST {{pokenae_WebApp_HostAddress}}/?handler=Test
+RequestVerificationToken: CfDJ8J_dHgmdq2lKqqvzICdyAt33lL8XtC8VxUs-pOPDBqedyHoQJnLjbizk8S2HOsms-hyd1PVu0oTZ2v7mNaYRiaOC8pNDyiVhHon4LQJ6DPA-bQliTQdaQsznhAfI7EQHOnITs3S_ix-9m6FlcPKuljY
+Content-Type: application/json
+cookie: AspNetCore.Antiforgery.WgoD07g0vFA=CfDJ8EDc4wgyovZCh_4rw54t5ScAD9Ucbdu0efrky2w2jmw6_o5ssTMBzJ45ODVrY3wWoomBMiU5HJUW-PB6wzqtgsK1Tyv41fLe4arn2LAFAqXVU9cGY89OKcA79bdCJolS8XPUCwJe5wYuphqbeI08sBk; .AspNetCore.Antiforgery.k04h3fY1qAw=CfDJ8EDc4wgyovZCh_4rw54t5ScTMkfzRLpuFmLMU59yqRItw8NFhpHVNF-_v4Sm3iUD9svKJjZqOStJeHXsW7k-NWQqf9A5TrBITSJeg3HONviJsndfmIiBhWynR5kBnKioP57NVKsL0NkYaye2FCpEqwE; .AspNetCore.Antiforgery.zmpXaHF28NA=CfDJ8EDc4wgyovZCh_4rw54t5Se7BWV1q1XNndlWJWQ7WPZocyJLA1gTfHl074YGceDWFMbPoUftkK7zH4gelDTpbmdpXbpjKy184q7bI8g3q8gV6AZPlvnwefDRts_OQDDXS9ib6b7WYmH3fqy5Ej01rn4; _ga=GA1.1.1841685096.1732795702; _ga_ZWBRHQCHQX=GS1.1.1734126325.31.1.1734134944.0.0.0
+
+{
+    "Id": "aaa",
+    "Name": "bbb"
+
+}
+
+###
+
+POST {{pokenae_WebApp_HostAddress}}/Test/?handler=Validate
+RequestVerificationToken: CfDJ8J_dHgmdq2lKqqvzICdyAt05s3-upRxPxgHBOX4DwP2CRVxjrw9dTyIdl6qvVYwzyiWcLLgPc-7Ni7QhgVAAWWT-rX6Kg8uF3o3dVh2vnAVRQiZ3DFroVAGwQNtBc4OB8Lmv-tfVdvKPNXHvICyJ7NI
+Content-Type: application/json
+cookie: AspNetCore.Antiforgery.WgoD07g0vFA=CfDJ8EDc4wgyovZCh_4rw54t5ScAD9Ucbdu0efrky2w2jmw6_o5ssTMBzJ45ODVrY3wWoomBMiU5HJUW-PB6wzqtgsK1Tyv41fLe4arn2LAFAqXVU9cGY89OKcA79bdCJolS8XPUCwJe5wYuphqbeI08sBk; .AspNetCore.Antiforgery.k04h3fY1qAw=CfDJ8EDc4wgyovZCh_4rw54t5ScTMkfzRLpuFmLMU59yqRItw8NFhpHVNF-_v4Sm3iUD9svKJjZqOStJeHXsW7k-NWQqf9A5TrBITSJeg3HONviJsndfmIiBhWynR5kBnKioP57NVKsL0NkYaye2FCpEqwE; .AspNetCore.Antiforgery.zmpXaHF28NA=CfDJ8EDc4wgyovZCh_4rw54t5Se7BWV1q1XNndlWJWQ7WPZocyJLA1gTfHl074YGceDWFMbPoUftkK7zH4gelDTpbmdpXbpjKy184q7bI8g3q8gV6AZPlvnwefDRts_OQDDXS9ib6b7WYmH3fqy5Ej01rn4; _ga=GA1.1.1841685096.1732795702; _ga_ZWBRHQCHQX=GS1.1.1734126325.31.1.1734134944.0.0.0
+
+{
+    GetCheck: false,
+    PokemonLevel: 5,
+    PokemonName: "ナエトル",
+    PokemonNickName: "",
+    PokemonShowType: "Name",
+    PokemonTrainer: "oza",
+    
+}
+
+###

@@ -1,0 +1,88 @@
+﻿@model pokenae_WebApp.Pages.CustomMessageAreaModel
+
+<div style="position:sticky; top:0px; width:100%; height:0px; z-index: 1002;">
+    <div id="@Model.Name" name="@Model.Name" class="custom-message-area" data-message-type="@Model.MessageType" data-display-time="@Model.DisplayTime" style="display:none">
+        <button type="button" class="close-button" onclick="closeMessageArea('@Model.Name')">×</button>
+        <div class="alert">
+            <strong></strong>
+            <ul>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeMessageArea(id) {
+        var messageArea = document.getElementById(id);
+        if (messageArea) {
+            messageArea.classList.add('closing');
+            setTimeout(function() {
+                messageArea.style.display = 'none';
+                messageArea.classList.remove('show');
+            }, 500); // アニメーションの時間と一致させる
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var messageArea = document.getElementById("@Model.Name");
+        var messageType = messageArea.getAttribute("data-message-type");
+        var displayTime = messageArea.getAttribute("data-display-time");
+        const messages = @Html.Raw(Json.Serialize(Model.Messages));
+        const id = '@Model.Name';
+        showMessage(id, messages, messageType, displayTime);
+    });
+
+    function showMessage(id, messages, messageType, displayTime){
+        var messageArea = document.getElementById(id);
+        if (messageArea) {
+            if(messages.length > 0){
+                var messageList = messageArea.querySelector('.alert ul');
+                messageList.innerHTML = '';
+                messages.forEach(function(message) {
+                    var li = document.createElement('li');
+                    li.textContent = message;
+                    messageList.appendChild(li);
+                });
+                messageArea.querySelector('.alert strong').textContent = messageType;
+                messageArea.setAttribute('data-message-type', messageType);
+                messageArea.setAttribute('data-display-time', displayTime);
+
+                switch (messageType) {
+                    case "Info":
+                        messageArea.style.backgroundColor = "#d9edf7"; // Info: Light Blue
+                        break;
+                    case "Alert":
+                        messageArea.style.backgroundColor = "#fcf8e3"; // Alert: Light Yellow
+                        break;
+                    case "Warning":
+                        messageArea.style.backgroundColor = "#f2dede"; // Warning: Light Red
+                        break;
+                    case "Error":
+                        messageArea.style.backgroundColor = "#f2dede"; // Error: Light Red
+                        break;
+                    default:
+                        messageArea.style.backgroundColor = "#ffffff"; // Default: White
+                        break;
+                }
+
+                //再表示
+                messageArea.style.display = 'block';
+                messageArea.classList.remove('closing');
+
+                //フェードイン
+                setTimeout(function() {
+                    messageArea.classList.add('show');
+                }, 10); // 少し遅延させてフェードインを適用
+
+                if (displayTime && !isNaN(displayTime)) {
+                    setTimeout(function() {
+                        closeMessageArea(id);
+                    }, displayTime);
+                }
+            }
+            else{
+                closeMessageArea(id);
+            }
+        }
+    }
+</script>

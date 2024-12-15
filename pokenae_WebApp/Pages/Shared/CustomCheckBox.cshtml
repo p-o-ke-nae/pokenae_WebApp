@@ -1,0 +1,13 @@
+﻿@model pokenae_WebApp.Pages.CustomCheckBoxModel
+<span for="@Model.Id" class="custom-checkbox-container">
+    @if(Model.IsChecked)
+    {
+        <input type="checkbox" id="@Model.Id" name="@Model.Name" class="custom-checkbox" checked />
+    }
+    else
+    {
+        <input type="checkbox" id="@Model.Id" name="@Model.Name" class="custom-checkbox" />
+    }
+    <label for="@Model.Id">@Model.Label</label>
+</span>
+<input type="hidden" name="@Model.Name" />

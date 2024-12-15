@@ -1,0 +1,97 @@
+﻿@model pokenae_WebApp.Pages.CustomMessageAreaModel
+
+<div style="position:sticky; top:0px; width:100%; height:0px; z-index: 1002;">
+    <div id="@Model.Name" name="@Model.Name" class="custom-message-area" data-message-type="@Model.MessageType" data-display-time="@Model.DisplayTime" style="display:none">
+        <button type="button" class="close-button" onclick="closeMessageArea()">×</button>
+        <div class="alert">
+            <strong></strong>
+            <ul>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const messageArea = document.getElementById("@Model.Name");
+        const messageType = messageArea.getAttribute("data-message-type");
+        const displayTime = messageArea.getAttribute("data-display-time");
+        const messages = @Html.Raw(Json.Serialize(Model.Messages));
+        showMessage(messages, messageType, displayTime);
+    });
+
+    function resetMessageArea(){
+        const messageArea = document.getElementById('@Model.Name');
+        if (messageArea) {
+            messageArea.classList.add('closing');
+            messageArea.style.display = 'none';
+            messageArea.classList.remove('show');
+        }
+    }
+    
+    function closeMessageArea() {
+        const messageArea = document.getElementById('@Model.Name');
+        if (messageArea) {
+            messageArea.classList.add('closing');
+            setTimeout(function() {
+                messageArea.style.display = 'none';
+                messageArea.classList.remove('show');
+            }, 500); // アニメーションの時間と一致させる
+        }
+    }
+
+    function showMessage(messages, messageType, displayTime){
+        const messageArea = document.getElementById('@Model.Name');
+        if (messageArea) {
+            if(messages.length > 0){
+                var messageList = messageArea.querySelector('.alert ul');
+                messageList.innerHTML = '';
+                messages.forEach(function(message) {
+                    var li = document.createElement('li');
+                    li.textContent = message;
+                    messageList.appendChild(li);
+                });
+                messageArea.querySelector('.alert strong').textContent = messageType;
+                messageArea.setAttribute('data-message-type', messageType);
+                messageArea.setAttribute('data-display-time', displayTime);
+
+                // 既存のメッセージタイプクラスを削除
+                messageArea.classList.remove('message-info', 'message-success', 'message-warning', 'message-error');
+
+                // メッセージタイプに応じたクラスを追加
+                switch (messageType) {
+                    case "Info":
+                        messageArea.classList.add('message-info');
+                        break;
+                    case "Success":
+                        messageArea.classList.add('message-success');
+                        break;
+                    case "Warning":
+                        messageArea.classList.add('message-warning');
+                        break;
+                    default: //case "Error":
+                        messageArea.classList.add('message-error');
+                        break;
+                }
+
+                //再表示
+                messageArea.style.display = 'block';
+                messageArea.classList.remove('closing');
+
+                //フェードイン
+                setTimeout(function() {
+                    messageArea.classList.add('show');
+                }, 10); // 少し遅延させてフェードインを適用
+
+                if (displayTime && !isNaN(displayTime)) {
+                    setTimeout(function() {
+                        closeMessageArea();
+                    }, displayTime);
+                }
+            }
+            else{
+                closeMessageArea();
+            }
+        }
+    }
+</script>

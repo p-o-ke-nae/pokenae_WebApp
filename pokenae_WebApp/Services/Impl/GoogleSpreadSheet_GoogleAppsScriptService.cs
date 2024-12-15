@@ -8,14 +8,14 @@ using Newtonsoft.Json;
 
 namespace pokenae_WebApp.Services.Impl
 {
-    public class GoogleAppsScriptService : IGoogleAppsScriptService
+    public class GoogleSpreadSheet_GoogleAppsScriptService : IGoogleSpreadSheetService
     {
         private readonly HttpClient _httpClient;
         private readonly string _addRowUrl;
         private readonly string _getSheetDataUrl;
         private readonly string _clearAndArchiveUrl;
 
-        public GoogleAppsScriptService(HttpClient httpClient, IConfiguration configuration)
+        public GoogleSpreadSheet_GoogleAppsScriptService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _addRowUrl = configuration["GoogleAppsScript:AddRowUrl"];

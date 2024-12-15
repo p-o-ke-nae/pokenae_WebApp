@@ -9,9 +9,9 @@ namespace pokenae_WebApp.Controller
     [Route("api/[controller]")]
     public class CollectionAssistanceToolController : ControllerBase
     {
-        private readonly IGoogleAppsScriptService _googleAppsScriptService;
+        private readonly IGoogleSpreadSheetService _googleAppsScriptService;
 
-        public CollectionAssistanceToolController(IGoogleAppsScriptService googleAppsScriptService)
+        public CollectionAssistanceToolController(IGoogleSpreadSheetService googleAppsScriptService)
         {
             _googleAppsScriptService = googleAppsScriptService;
         }

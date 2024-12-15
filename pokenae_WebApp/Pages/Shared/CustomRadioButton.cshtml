@@ -1,0 +1,9 @@
+﻿@model pokenae_WebApp.Pages.CustomRadioButtonModel
+
+@foreach (var option in Model.Options)
+{
+    <span for="@(Model.Id)_@(option.Value)">
+        <input type="radio" id="@(Model.Id)_(@option.Value)" name="@Model.Name" value="@option.Value" @(Model.SelectedOption == option.Value ? "checked" : "") />
+        <label for="@(Model.Id)_@(option.Value)">@option.Text</label>
+    </span>
+}

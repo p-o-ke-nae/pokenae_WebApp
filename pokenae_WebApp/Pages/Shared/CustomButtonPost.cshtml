@@ -1,0 +1,58 @@
+﻿@model pokenae_WebApp.Pages.CustomButtonPostModel
+
+<div id="div_@Model.Id">
+    <button id="@Model.Id" name="@Model.Name" class="custom-button custom-button-normal validate" type="button">@Model.ButtonText</button>
+</div>
+
+<script src="~/js/webutil.js" asp-append-version="true"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('div_@Model.Id');
+        const url = '@Model.Url';
+
+        button.addEventListener('click', async function () {
+            if (url !== 'null') {
+                try {
+                    const verificationtoken = document.getElementsByName('__RequestVerificationToken')[0];
+
+                    if (verificationtoken) {
+                        const token = verificationtoken.value;
+                        const jsonObject = getFormData();
+
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': token
+                            },
+                            body: JSON.stringify(jsonObject) // フォームデータをJSON形式で送信
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        const data = await response.json();
+                        if (data.messages && data.messages.length > 0) {
+                            let displaytime = null;
+                            if(data.displaytime)
+                            {
+                                displaytime = data.displaytime;
+                            }
+                            if(data.messagetype)
+                            {
+                                showMessage(data.messages, data.messagetype, displaytime);
+                            }
+                            else
+                            {
+                                showMessage(data.messages, "Info", displaytime);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('There has been a problem with your fetch operation:', error);
+                }
+            }
+        });
+    });
+</script>

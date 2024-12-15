@@ -1,0 +1,10 @@
+﻿@model pokenae_WebApp.Pages.CustomTextBoxSpinBoxModel
+@{
+    string required = Model.IsRequired ? "required" : "";
+    string readOnly = Model.IsReadOnly ? "readonly" : "";
+    string minValue = Model.MinValue.HasValue ? $"data-val-range-min={Model.MinValue} min={Model.MinValue}" : "";
+    string maxValue = Model.MaxValue.HasValue ? $"data-val-range-max={Model.MaxValue} max={Model.MaxValue}" : "";
+    string stepValue = $"step={Model.Step}";
+}
+
+<input type="number" id="@Model.Id" name="@Model.Name" class="custom-textbox" @required @readOnly @minValue @maxValue @stepValue title="" value="@Model.Value" />

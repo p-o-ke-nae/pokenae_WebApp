@@ -1,0 +1,6 @@
+﻿@model pokenae_WebApp.Pages.CustomRadioButtonModel
+
+@foreach (var option in Model.Options)
+{
+    <input type="radio" id="@Model.Id _@option" name="@Model.Name" class="custom-radio-button" value="@option" bind="@Model.SelectedOption" /> @option
+}
